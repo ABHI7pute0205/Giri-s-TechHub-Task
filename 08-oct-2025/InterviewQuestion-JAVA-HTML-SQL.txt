@@ -1,0 +1,820 @@
+10-8-2025
+Inheritance Interview Questions
+_________________________________________________________________________________
+1.What is inheritance in Java and why is it used?
+--> 
+Inheritance means transferring the properties of one class to another class called inheritance.
+Property provider class known as parent class and property receiver class known as child class.
+
+Why use it--
+a. Reusability of code : 
+	code reusability means we  can access parent class content or logic by using child class object means we are not required to create object of parent class,  means we can access/ use parent content by using child class object called as reusability.
+
+b. Extensibility of code : 
+	Extensibility means  child class can acquire property from parent and add own properties in it called as extensibility. means child can use parent class method logic as well as implement own features known as Extensibility.
+
+_________________________________________________________________________________
+2.Explain the different types of inheritance supported in Java.
+-->  we have some types of the inheritance in Java :
+1. Single level inheritance:
+	 single level inheritance means there is only one parent class and only one child class called single level inheritance. 
+
+2. Multi level inheritance: 
+	one class is parent of another and child of another called as multi level inheritance and in multilevel inheritance there is one main parent class and main child class  
+
+3. Hierarchical Inheritance : 
+	Hierarchical inheritance means there is only one parent class and more than one child class called Hierarchical inheritance.
+
+4. Multiple inheritance : 
+	there is only one child class and more than one parent called as multiple inheritance.
+
+5. Hybrid inheritance : 
+	hybrid inheritance means it is a combination of all types of inheritance called hybrid inheritance.
+
+__________________________________________________________________________________
+3.Why does Java not support multiple inheritance using classes?
+--> 
+	Because of the diamond problem if we use classes with multiple inheritance there is a possibility of a diamond problem.
+-Diamond problem means if we have multiple parent classes and single child class so there is possibility in different parent may be contain same name method and if create object of child class try to call method whose name same in different parent class then compiler may be get confused called as diamond problem.
+
+Java does not support multiple inheritance using classes to avoid ambiguity and complexity — especially the “Diamond Problem.”
+
+Explanation in simple words:
+If a class inherits from two parent classes that both have the same method name,
+then the child class won’t know which one to use — this creates confusion.
+This is called the Diamond Problem.
+e.g
+class A {
+    void show() {
+        System.out.println("A's show");
+    }
+}
+class B {
+    void show() {
+        System.out.println("B's show");
+    }
+}
+class C extends A, B {  // Java does NOT allow this
+    // Error: multiple inheritance not allowed
+}
+
+_________________________________________________________________________________
+4.What is the difference between “extends” and “implements”?
+-->
+
+extends : 
+	- used with class and also interface
+	-inherit properties and methods from a parent class
+	- only one class can be extends at a time 
+	- Syntax : class B extends A{ }
+	- child class gets all methods and fields of parent class 
+
+implements :
+	- used with only interface
+	- provide implementation for interface methods
+	- a class can implements multiple inheritance.
+	- Syntax : class C implements I1, I2{ }
+	- class must provide code for all methods of interface  
+_________________________________________________________________________________
+5.How does constructor chaining work in inheritance?
+-->
+Constructor chaining means calling one constructor from another constructor called as constructor chaining.
+In inheritance :
+	when a child class object is created, its parent class constructor runs first automatically, then the child’s constructor runs.
+e.g 
+class A {
+    A() {
+        System.out.println("Constructor of A");
+    }
+}
+class B extends A {
+    B() {
+        System.out.println("Constructor of B");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        B obj = new B();
+    }
+}
+
+o/p: 
+Constructor of A
+Constructor of B
+
+in the case when we have parameterized constructor in parent class so in this case we need to pass the parameter to that constructor using super  keyword from the child class constructor.
+ - super must be the first line in the child class constructor.
+ - When used like super(...), it calls the parent constructor.
+e.g 
+class A {
+    A(int a) { 
+        System.out.println("Constructor of A : " + a); 
+    }
+}
+class B extends A {
+    B() {  
+        super(10); 
+        System.out.println("Constructor of B");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        B obj = new B();
+    }
+}
+
+_________________________________________________________________________________
+6.What is the use of the super keyword in inheritance?
+-->
+	Super is reference or keyword in java which is used for call parent class member from child class normally super keyword is used in the case of method overriding because in the case of method overriding if we create object of child class and try to call overridden method then by default child  logics get executed so if we want to call parent method in the case of overriding then we can use super keyword.
+- super is a keyword in Java used in a child class to refer to its parent class.
+- It allows a child class to access parent class members (variables, methods, or constructors).
+E.g.
+class A {
+    int x = 10;
+    void show() {
+        System.out.println("A's show: " + x);
+    }
+}
+class B extends A {
+    int x = 20;
+    B() {
+        super.show();       // calls parent method
+        System.out.println("B's x = " + x);
+        System.out.println("A's x = " + super.x); // parent variable
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        B obj = new B();
+    }
+}
+ 
+_________________________________________________________________________________
+7.Can a subclass (child) override a private or static method of its super (parent) class? Explain.
+-->
+No, a subclass cannot override a PRIVATE METHOD'S of its superclass.
+
+Why:
+private methods are not visible to the subclass.
+Since the subclass cannot see the private method, it cannot override it.
+If you write a method with the same name in the subclass (child), it’s a new method, not an override. 
+	means if we declared a private method in a parent class and redefined a same method in a child class with same name , and same signature then this not a overriding becase private do not support to overriding , child consider this is it's own method and ,  if we want to cross verify then use super keyword and try to call an parent class method then  we get compile time error : show() has private access in A
+
+e.g.
+class A {
+    private void show() {
+        System.out.println("A's private show");
+    }
+}
+class B extends A {
+    void show() {		 // This is NOT overriding
+        System.out.println("B's show");
+    }
+}
+public class PriveteOverrideOrNot {
+    public static void main(String[] args) {
+        B b = new B();
+        b.show(); // Calls B's show
+    }
+}
+o/p : 
+B's show
+--------------------------------------------------------------------------------
+can we override	STATIC METHOD in JAVA ?
+-->
+ No we cannot override static method in JAVA and when we override static method then method overriding does not happen method hiding happens.
+ 
+ How to identify method overriding or method hiding ?
+->
+If we want to identify method overriding then create reference of the parent using child object by using upcasting technique means using child class object then by default child logics get executed.
+
+In the case of method hiding when we create reference parent using child object try to call an overridden method then by default parent logics get execute method not override even hide from overriding so it is known as method hiding.
+
+Static methods belong to the class, not the object.
+If you write a static method with the same name in a subclass, it’s called method hiding, not overriding
+
+e.g.
+class A {
+    static void display() {
+        System.out.println("A's static display");
+    }
+}
+
+class B extends A {
+    static void display() { // hides A's method
+        System.out.println("B's static display");
+    }
+}
+
+public class StaticOverrideOrNOt{
+    public static void main(String[] args) {
+
+        A a = new B();   // parent class reference and child class reference called upcasting Technique 	
+
+// in the case of the static method override try to call and overriden method then by default the parent's logic get executed here method hidding happens 
+
+        a.display(); // Calls A's static method
+       
+	// B.display(); // static method belongs to the class not object of class / instance using class name we can directly call static methods
+    }
+}
+
+_________________________________________________________________________________
+8.What happens if a parent and child class have the same field name?
+--> 
+If a parent and child class have the same field name, the child class hides the parent class’s field — it doesn’t override it (fields can’t be overridden, only hidden).
+That means:
+
+ACCESS DEPENDS ON REFERENCE TYPE , NOT THE OBJECT TYPE  (just like static methods).
+e.g 
+class Parent {
+    int num = 10;
+}
+
+class Child extends Parent {
+    int num = 20;
+}
+
+public class ParentAndChildHaveSameFieldName{
+    public static void main(String[] args) {
+
+// Access depends on reference type, not the object type
+// fields can not be override only hides
+
+        Parent p = new Child();	// parent class ref child class object 
+
+        Child c = new Child();
+
+        System.out.println(p.num); // (1)
+
+        System.out.println(c.num); // (2)
+    }
+}
+Explanation:
+
+1️⃣ p is a Parent reference pointing to a Child object,
+but since fields are not polymorphic, Java looks at the reference type (Parent),
+so → p.num uses Parent’s num = 10
+
+2️⃣ c is a Child reference,
+so → c.num uses Child’s num = 20
+_________________________________________________________________________________
+9.What is hierarchical inheritance and give a real-life example.
+-->
+	Hierarchical inheritance means there is only one parent class and more than one child class called Hierarchical inheritance.
+e.g 
+
+class Animal {		// only one parent class  and more than one child class 
+    void eat() {
+        System.out.println("All animals eat food");
+    }
+}
+class Dog extends Animal {	// dog is a child of the Animal class
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+class Cat extends Animal {	// cat also child 
+    void meow() {
+        System.out.println("Cat meows");
+    }
+}
+public class HirarchicalInheritanceEg {
+    public static void main(String[] args) {
+
+        Dog d = new Dog();		// child can inherit the property from parent class  
+        d.eat();   // from Animal
+        d.bark();  // from Dog
+
+        Cat c = new Cat();
+        c.eat();   // from Animal
+        c.meow();  // from Cat
+    }
+}
+O/p :______________________
+All animals eat food
+Dog barks
+All animals eat food
+Cat meows
+------------------------------------------------------------------
+e.g Real Life Example :
+ 
+Real-Life Example:
+
+Think of a parent class = Vehicle
+and multiple child classes = Car, Bike, Truck.
+
+All vehicles share some common features (like start(), stop()),
+but each has its own specific behavior.
+
+_________________________________________________________________________________
+10.How is polymorphism related to inheritance?
+-->
+Polymorphism means "many forms" — it allows one object to behave in different ways depending on how it’s used.
+- In Java, polymorphism is possible only through inheritance (or interfaces).
+- That’s because to have multiple forms, there must be a relationship between classes — and inheritance creates that relationship. 
+
+Simple Explanation:
+- Inheritance allows a child class to use or modify methods of a parent class.
+- Polymorphism allows a parent reference to call different versions (forms) of those methods — depending on which child object it points to.
+e.g 
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+class Cat extends Animal {
+    void sound() {
+        System.out.println("Cat meows");
+    }
+}
+public class PolymorPhismRelatedToInheritance {
+    public static void main(String[] args) {
+
+        Animal a;	// create a reference of the parent class 
+
+        a = new Dog();	// use this reference with dog class then dog's version get executed 
+        a.sound();  
+
+// use same parent class refenrece with cat class then cat's version get executed  this is called polymorphism here one method can behave differnt in different situations
+        a = new Cat();	 
+        a.sound();   
+    }
+}
+
+_________________________________________________________________________________
+11.What is the difference between super keyword , super() constructor and this reference ?
+-->
+Super constructor : 
+	- Super constructor is used for pass parameter to parent class constructor from child  class constructor 
+	- super() constructor must be the first line of code in child class constructor
+	- super() constructor cannot work with this() constructor at same time
+
+Super Keyword : 
+	- super keyword is used for call parent member from child class in the case of overriding.
+	- super reference or keyword is not necessary first line of code in child class constructor 
+	- super keyword and this keyword can use within same block
+
+this reference :
+	- this reference is used for point to current running object in memory
+	- This normally recommend when we want to call same class member from his own definition or when local variable name and instance 		  variable name same and differentiate them in function block.
+
+super Reference : 
+	- super reference points to immediate parent class reference
+	- super normally use in overriding when we want to call parent member from child class in the case of method overriding 
+
+________________________________________________________________________________________________________________________________________________
+							HTML INTERVIEW QUESTIONS 
+________________________________________________________________________________________________________________________________________________
+
+1.What is HTML and why is it used?
+-->
+HTML stands for Hypertext Markup Language.
+It is used to create the structure of a web page, like headings, paragraphs, images, and links.
+In short, HTML tells the browser what to display on a web page.
+___________________________________________________________________________________
+
+2.What are HTML tags and attributes?
+-->
+ - Tags are the building blocks of HTML — they define elements like <p>, <div>, <h1>, etc.
+	using tag's we can design HTML Web Page and put content in side a tag which we want to render (display) after html page Load.
+
+ - Attributes give extra information about an element, written inside the opening tag.
+	<img src="photo.jpg" alt="My Photo"> -> here [Here "src" and "alt" are attributes] alt is a Attribute it gives extra information about the element this is a image tag and we pass image in it , due to some reason when image will not display at that time that alt attribute run OR display message  
+___________________________________________________________________________________
+
+3.between block-level and inline elements.
+-->
+	Block-level elements start on a new line and take the full width available.
+	Example: <div>, <p>, <h1> (web page che full width cover kart)
+
+	Inline elements stay in the same line and take only the needed width.
+	Example: <span>, <a>, <b> (particular line var ti element place zalya var ti jev dhe garje che space ye tevdhe ch ghet )
+___________________________________________________________________________________
+
+4.What is the difference between <div> and <span>?
+-->
+   - <div> is a block-level element used to group large sections of content. (cover large area )
+
+   - <span> is an inline element used to style or group small pieces of text. (aquire as needed space and style the content as well as help to group small piece of text)
+	E.G. 
+	My name is <span style="color: red; font-weight: bold;">Abhi</span> and I love coding.
+	Explanation:
+	- The text inside <span> — “Abhi” — is given special styling.
+	- style="color: red; font-weight: bold;" means:
+	- text color will be red
+	- text will be bold
+
+E.g. 
+<div>This is a block</div>
+<span>This is inline text</span>
+___________________________________________________________________________________
+
+5.Explain the difference between <id> and <class> attributes.
+-->
+ - id is used to give a unique name to an element (used only once).
+	id represents using # for apply styling
+
+ - class is used to group multiple elements with the same style or behavior
+	class is represents using .(dot) for apply styling on them 
+e.g.
+<p id="title">Heading</p>
+<p class="text">Paragraph</p>
+
+___________________________________________________________________________________
+
+6.What is the purpose of <head> and <body> tags in HTML?
+-->
+ - <head> contains metadata about the page (like title, CSS links, scripts).
+
+ - <body> contains the content that is shown on the browser (like text, images, buttons). 
+___________________________________________________________________________________
+
+7.What are semantic elements in HTML5?
+-->
+	- Semantic elements clearly describe their meaning to the browser and developer.
+Examples: <header>, <footer>, <article>, <section>, <nav>.
+ - They make the code more readable and better for SEO.
+___________________________________________________________________________________
+
+8.What is the difference between <strong> and <b>, and <em> and <i>?
+-->
+	<b> and <i> are used only for styling (bold and italic).
+	<strong> and <em> show importance or emphasis — also help with SEO and accessibility
+e.g 
+<strong>Important text</strong>
+<em>Emphasized text</em>
+___________________________________________________________________________________
+
+9.How can you create a hyperlink and open it in a new tab?
+-->
+	- for these we need to use the <a> tag with the href attribute and target="_blank".
+anchor tag contains the href , href stands for hyper reference means reference of the page on which we want to go after clicking on a anchor tag 
+  and target="_blank" represents the open that link on new window if we do not set target then open that visited page on same window 
+e.g.
+<a href="https://www.google.com" target="_blank">Open Google</a>
+___________________________________________________________________________________
+
+10.What is the difference between HTML and XHTML?
+-->
+	HTML : Stands for Hypertext Reference 
+	 - Less Strict in syntax
+	 - Tag's of the HTML Are Not Case Sensitive --> <BODY> or <body>
+	 - Not All Tag's Closing --> <br> 
+	 - Based on SGML (Standard Generalized Markup Language)
+	 - Attribute values can be without quotes  --> <img src=pic.jpg>
+
+	XHTML : eXtensible HyperText Markup Language
+	 - More Strict and Rule based 
+	 - Tag's must be in Lower Case 
+	 - Every Tag Must be Closed  --> <br/>
+	 - Based on XML (Extensible Markup Language)
+	 - All attribute values must be in quotes  --> <img src="pic.jpg" />
+
+________________________________________________________________________________________________________________________________________________
+							SQL INTERVIEW QUESTIONS
+________________________________________________________________________________________________________________________________________________
+
+Q1. Explain logical operators in SQL?
+-->
+Logical operators are used to combine two or more conditions in a SQL query.
+They return results based on whether the conditions are true or false.
+
+Common logical operators:
+	AND  →  All conditions must be true.
+	OR   →  At least one condition must be true.
+	NOT  →  Reverses the result (makes true → false, false → true).
+e.g 
+SELECT * FROM employees WHERE salary > 30000 && age < 40;	AND
+SELECT * FROM employees WHERE salary > 30000 || age < 40;	OR
+SELECT * FROM employees WHERE salary > 30000 <> age < 40;	NOT
+
+________________________________________________________________________________________
+
+Q2. Explain IN and Between operator with example?
+-->
+[IN operator is used for avoid multiple OR Condition and work as conjunction operator in subquery 
+Sometime when we need to apply multiple OR conditions with same column name so better way you can  use  IN operator except writing multiple OR condition with same column]
+
+	in SQL "IN" is used to Avoid multiple Or Conditions   IN is used to match a value from a set of values.
+e.g 
+SELECT * FROM Employee WHERE Salary IN (10000,25000,30000);   // select the employees whose salary from any one of them 
+
+[Between operator is used for fetch data between specified range means it is alternative option of column>=value && column<=value]
+
+	BETWEEN Operator is used in SQL Fetch the Values From The Specified Range .  BETWEEN is used to match values within a range.
+e.g
+	Select * from Employee where salary Between 10000 and 20000;  // select the employee whose salary in between 10000 and 20000 (chya madhle sagle employee fetch kar t )
+
+________________________________________________________________________________________
+
+Q3. What is an like operator and explain its wildcard character with real time examples?
+--> 
+	 Like Operator in SQL is used for the PAttern Matching purpose  | LIKE is used to search for a pattern in a column using wildcards.
+
+Wildcards:
+
+% → represents any number of characters
+_ → represents a single character
+
+e.g 
+SELECT * FROM employee WHERE name LIKE 'A%';   -- names starting with A
+SELECT * FROM employee WHERE name LIKE '%n';   -- names ending with n
+SELECT * FROM employee WHERE name LIKE '_a%';  -- second letter is a
+
+________________________________________________________________________________________
+
+Q4. What is the use of group by and having to explain with an example?
+-->
+	Group by clause: if we want to generate result by using a specified column or group of similar values using a specified column then we can use group by clause 
+Syntax : select column from table group by columnname;
+e.g
+	select salary , count(salary) from employee group by salary;
+
+	Having clause is used for check the condition with aggregate functions means we cannot use aggregate function in where clause for checking the condition and if we want to solve this problem we have use having clause
+
+Syntax : select columnname , aggregateFun(columname) from tableName group by columnname having condition;
+
+IMP :
+If we want to work with having clause we have some important rules
+	- Having clause always works with group by clause 
+	- Having clause use the aggregate function for check the condition 
+	- Normally we use aggregate function in having clause whose name use in select query
+	- Having always use after group by and before order by clause 
+
+________________________________________________________________________________________
+
+Q5. What is the use of order by clause explained with an example?
+-->
+	Order by clause is used for arranging data in ascending order or in descending order.
+Syntax  : Syntax: select *from tablename order by columnname asc | desc
+e.g
+select * from employee  order by salary desc;
+
+________________________________________________________________________________________
+
+Q6. What is the difference between having and where clause?
+-->
+	Having clause :
+	- Having clause is used for check the condition with aggregate functions means we cannot use aggregate function in where clause for checking the condition and if we want to solve this problem we have use having clause
+	- Filter groups after Grouping 
+	- Use With Aggregate Function Like count,sum,avg,min,max
+	- having count(salary) > 5
+
+	Where clause :  Where clause help us to apply condition with DML commands 
+	- Filter rows before grouping Normal Condition
+	- Where salary > 30000
+________________________________________________________________________________________
+
+Q7. What is the difference between IN and between operators?
+-->
+	IN : this operator is used to avoid Multiple OR Conditions
+	 - to check value from a list
+	 - col In (val1,val2,val3);
+	 - e.g sal In (100,500,1500);
+
+	BETWEEN : used to fetch the data from the Data From The Specified Range 
+	 - to check a value within a range 
+	 - col Between val1 and val2;
+	 e.g sal Between 1000 and 5000;
+________________________________________________________________________________________
+
+Q8. What is the correct sequence when order by , where, like , having and group by use in the same query?
+-->
+	 when we required to use  order by , where, having , group by and like in single query 
+Then your correct sequence should be
+
+Syntax: 
+	Select *from tablename where condition like pattern group by columnname having condition order by columnname desc | asc
+e.g 
+      mysql> select sal, count(sal) from employee where sal>=10000 and name like '%r%' group by sal having count(sal)>1 order by count(sal) asc;
+
+1. WHERE
+2. LIKE
+3. GROUP BY
+4. HAVING
+5. ORDER BY
+
+________________________________________________________________________________________
+
+Q9. Is it possible to use having without using group by clause?
+-->
+	Yes, possible.	If you use aggregate functions like COUNT, SUM, etc.,	you can use HAVING without GROUP BY.
+e.g 
+
+SELECT COUNT(*) FROM employee HAVING COUNT(*) > 10;
+
+________________________________________________________________________________________
+
+Q10. Can we use another column in the select query if we use group by clause?
+-->
+	No, unless that column is used in an aggregate function or included in the GROUP BY (always remember the column used in the select query must be needed to use this column in group by )
+e.g
+	SELECT dept, COUNT(*) FROM employee GROUP BY dept;
+
+________________________________________________________________________________________
+
+Q11. What is the default value to column in SQL table?
+-->
+	If no default value is given,
+	then the column’s default value is NULL,
+	unless you define a DEFAULT in the table.
+e.g
+	salary INT DEFAULT 50000;
+
+________________________________________________________________________________________________________________________________________________
+							SQL Query QUESTIONS
+________________________________________________________________________________________________________________________________________________
+
+Table - 1: 
+
+mysql> create table province(province_id int(5) primary key auto_increment , province_name varchar(2000));
+Query OK, 0 rows affected, 1 warning (0.24 sec)
+
+mysql> desc province
+    -> ;
++---------------+---------------+------+-----+---------+----------------+
+| Field         | Type          | Null | Key | Default | Extra          |
++---------------+---------------+------+-----+---------+----------------+
+| province_id   | int           | NO   | PRI | NULL    | auto_increment |
+| province_name | varchar(2000) | YES  |     | NULL    |                |
++---------------+---------------+------+-----+---------+----------------+
+2 rows in set (0.02 sec)
+
+Table - 2:
+
+mysql> create table doctors ( dr_id int(5) primary key auto_increment , First_Name varchar(100) , Last_name varchar(100) , Speciality varchar(100));
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> desc doctors;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| dr_id      | int          | NO   | PRI | NULL    | auto_increment |
+| First_Name | varchar(100) | YES  |     | NULL    |                |
+| Last_name  | varchar(100) | YES  |     | NULL    |                |
+| Speciality | varchar(100) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+
+Table - 3:
+
+mysql> create table patients (pid int(5) primary key auto_increment , FirstName varchar(100) , lastName varchar(100) , gender char(1) , birthDate date , city varchar(100) , province_id int(5) , foreign key (province_id) references province(province_id) , allergies varchar(80) , height decimal(3,0) , weight decimal(4,0));
+Query OK, 0 rows affected, 2 warnings (0.14 sec)
+
+mysql> desc patients;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| pid         | int          | NO   | PRI | NULL    | auto_increment |
+| FirstName   | varchar(100) | YES  |     | NULL    |                |
+| lastName    | varchar(100) | YES  |     | NULL    |                |
+| gender      | char(1)      | YES  |     | NULL    |                |
+| birthDate   | date         | YES  |     | NULL    |                |
+| city        | varchar(100) | YES  |     | NULL    |                |
+| province_id | int          | YES  | MUL | NULL    |                |
+| allergies   | varchar(80)  | YES  |     | NULL    |                |
+| height      | decimal(3,0) | YES  |     | NULL    |                |
+| weight      | decimal(4,0) | YES  |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+10 rows in set (0.01 sec)
+
+Table - 4:
+
+mysql> create table admission (pid int(5) , foreign key (pid) references patients(pid) , AdmissionDate Date , DischargeDate Date , Diagnosis varchar(100) , attendingDoctorId int(5));
+Query OK, 0 rows affected, 2 warnings (0.11 sec)
+
+mysql> desc admission;
++-------------------+--------------+------+-----+---------+-------+
+| Field             | Type         | Null | Key | Default | Extra |
++-------------------+--------------+------+-----+---------+-------+
+| pid               | int          | YES  | MUL | NULL    |       |
+| AdmissionDate     | date         | YES  |     | NULL    |       |
+| DischargeDate     | date         | YES  |     | NULL    |       |
+| Diagnosis         | varchar(100) | YES  |     | NULL    |       |
+| attendingDoctorId | int          | YES  |     | NULL    |       |
++-------------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+_____________________________________________________________________________________________________________________
+			SQL Question's 
+
+1. selects all fields from "patients" where first_name is "John" AND city is "Toronto"
+-->
+mysql> select * from patients where firstname = 'Aditya' AND city = 'Devgaon';
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName | gender | birthDate  | city    | province_id | allergies | height | weight |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase   | M      | 2003-09-19 | Devgaon |           3 | Pollution |    179 |     58 |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+1 row in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+2. SQL statement selects all fields from "patients" where city is "Hamilton" OR "Toronto":
+-->
+mysql> select * from patients where city='shirapur' OR city= 'Devgaon';
++-----+-----------+----------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+----------+--------+------------+----------+-------------+-----------+--------+--------+
+|   1 | Ritesh    | Parasur  | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   3 | Aditya    | pawase   | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
++-----+-----------+----------+--------+------------+----------+-------------+-----------+--------+--------+
+2 rows in set (0.00 sec)
+
+_____________________________________________________________________________________________________________________
+3. selects all fields from "patients" where province_id is NOT "ON" (Ontario):
+-->
+mysql> select *from patients where province_id <> 'ON';
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   1 | Ritesh    | Parasur    | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
+|   3 | Aditya    | pawase     | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+3 rows in set, 1 warning (0.01 sec)
+_____________________________________________________________________________________________________________________
+4.selects all patients from the "Patients" table, sorted by the "first_name" column:
+-->
+mysql> select * from patients Order by FirstName;
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase     | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
+|   1 | Ritesh    | Parasur    | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+3 rows in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+5. selects all patients from the "patients" table, sorted DESCENDING by the "first_name" column?
+--
+mysql> select * from patients Order by FirstName desc;
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
+|   1 | Ritesh    | Parasur    | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   3 | Aditya    | pawase     | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+3 rows in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+6.selects all patients from the "patients" table, sorted by the "first_name" and the 
+"last_name" column. This means that it orders by first_name, but if some rows have the same first_name, it orders them by last_name
+-->
+mysql> select * from patients order by FirstName , lastName;
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase     | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
+|   1 | Ritesh    | Parasur    | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+3 rows in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+7. selects all patients from the "patients" table, sorted ascending by the "first_name" and descending by the "last_name" column
+-->
+mysql> select * from patients order by FirstName ASC, lastName DESC;
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase     | M      | 2003-09-19 | Devgaon  |           3 | Pollution |    179 |     58 |
+|   1 | Ritesh    | Parasur    | M      | 2003-01-10 | shirapur |           1 | Dust      |    175 |     55 |
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+3 rows in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+8.selects all patients with a first_name starting with "a"
+-->
+mysql> select * from patients where FirstName like 'a%';
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName | gender | birthDate  | city    | province_id | allergies | height | weight |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase   | M      | 2003-09-19 | Devgaon |           3 | Pollution |    179 |     58 |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+1 row in set (0.01 sec)
+_____________________________________________________________________________________________________________________
+9.selects all patients with a first_name ending with "a":
+-->
+mysql> select * from patients where FirstName Like '%a';
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName | gender | birthDate  | city    | province_id | allergies | height | weight |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+|   3 | Aditya    | pawase   | M      | 2003-09-19 | Devgaon |           3 | Pollution |    179 |     58 |
++-----+-----------+----------+--------+------------+---------+-------------+-----------+--------+--------+
+1 row in set (0.00 sec)
+_____________________________________________________________________________________________________________________
+10.selects all patients with a first_name that have "ra" in any position
+-->
+mysql> select * from patients where FirstName Like '%ra%';
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+| pid | FirstName | lastName   | gender | birthDate  | city     | province_id | allergies | height | weight |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+|   2 | Saurabh   | Kshirsagar | M      | 2003-03-04 | Dolasane |           2 | None      |    165 |     49 |
++-----+-----------+------------+--------+------------+----------+-------------+-----------+--------+--------+
+1 row in set (0.00 sec)
