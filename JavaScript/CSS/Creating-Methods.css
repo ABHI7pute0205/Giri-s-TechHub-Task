@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.box {
+  width: 80%;
+  min-height: 200px;
+  border: 1px solid #000;
+  margin: auto;
+  background-color: lightgray;
+}
+
+.text {
+  padding: 10px;
+  font-weight: 200;
+  font-size: 22px;
+  color: rebeccapurple;
+}

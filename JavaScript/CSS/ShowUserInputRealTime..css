@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 80%;
+  margin: auto;
+  border: 1px solid #000;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.parent {
+  justify-content: center;
+  display: flex;
+  /* flex-direction: column; */
+}
+.b {
+  display: flex;
+}
+#head {
+  text-align: center;
+  padding-top: 20px;
+}
+.title {
+  text-align: center;
+  margin-top: 10px;
+}
+.box1 {
+  width: 45%;
+  height: 400px;
+  border: 1px solid #000;
+  margin-right: 10px;
+  margin-left: 10px;
+  background-color: lightgreen;
+  padding-left: 30px;
+}
+.box2 {
+  margin-right: 10px;
+  width: 45%;
+  height: 400px;
+  background-color: lightgreen;
+  border: 1px solid #000;
+  padding-left: 30px;
+}
+/* this is for to show the o/p on a same line not on a new line  jar ya cha use nahi kela tar o/p new line var ti show hot */
+div {
+  display: inline;
+}
+p {
+  display: inline;
+}
+
+input[type="text"]{
+    height: 25px;
+    width: 300px;
+    align-items: center;
+}

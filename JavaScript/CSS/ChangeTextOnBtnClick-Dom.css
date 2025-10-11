@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  width: 80%;
+  min-height: 300px;
+  border: 1px solid #000;
+  margin: auto;
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: lightgray;
+}
+.container p {
+  padding: 10px 20px;
+  /* text-align: center; */
+}
+.container #btn {
+  text-align: center;
+  padding: 10px;
+  background-color: aqua;
+  font-size: 18px;
+  border: none;
+}
+.container #changeColor {
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: cornflowerblue;
+  border: none;
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: white;
+}
+/* eith ek seperate property write kele ki je btn click var ti page cha background color change karel  */
+.pageBackColorChange {
+  background-color: crimson;
+}

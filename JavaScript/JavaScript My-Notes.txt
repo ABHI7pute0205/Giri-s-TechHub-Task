@@ -1,0 +1,121 @@
+JavaScript Notes ->
+
+JavaScript -> Scripting + programming lang(ReactJS , ExpressJS  , MongoDB , Angular)
+
+ Before NodeJS it is a Scripting Language
+AND 
+JavaScript is a Programming Language after Node   
+______________________________________________
+Object mhanl ki  -->  array / json  yet / array of json 
+
+string --> foreach , for of and for in ->array, string, Json sathi he loop use kar tat
+_____________________________________________
+
+How to use JS in HTML file ? What are different ways to add JS in html
+->
+  a. internal js -> <script> </script> [use in head or body tag in html page]
+
+  b. external js -> <script src="path"></script>[head or body tag in html page]
+________________________________________________
+
+Q How to run js file ? OR what are different ways to run js file?
+-->
+a. by using HTML file  (client side)
+b. by using Nodejs --> install Nodejs on your os. use version v22.19.0(LTS)(Server side)
+
+1. node -v [to check the version of node]
+2. npm -v[node package manager]
+
+Editor --> WebStrom ->Support  all JS Libraries and AI support 
+
+____________________________________________________
+
+Steps to run JS file on "Server side" i.e. on Command Prompt or through out the Browser 
+
+step 1]	open command Prompt 
+step 2] change path to where we create js file
+step 3] node filename.js (run this command)
+____________________________________________________
+11-9-2025 
+
+Data Types in JS 
+
+1] Primitive types i.e. Primary , Fundamental DT (Immutable -> can't change)
+
+1. number
+2. String 
+3. Undefined -> 'variable' which is 'declared' in JS but we can not Assign value to that variable or not defined called as undefined 
+4. NaN (Not a Number) -> String la jar number madhe convert kart also tar ha error chya Aaivaji asa msg display hoto
+5.null -> empty 
+
+2]  Object Data Types (mutable -> we can change it)
+
+1. array -> heterogenous in JS
+2.json  -> Key value pair
+3. Array of Objects -> 
+[
+	{},
+	{}
+]
+
+____________________________________________________
+
+OPERATORS IN JS
+
+1. Arithmetic OP -> +,-,*,/,%
+2. Relational OP -> <,>,>=,<=,!=,==, Special in JS === Compare Value of variable as well as Data Type of the Variable 
+3. Logical OP -> !, && , ||
+4. Assignment OP -> +=,-=,*=,/=
+5. Bitwise OP -> & , | , ^ , <<,>> 
+6. Ternary OP ->  ? , :  e.g. condition ? true : false  
+
+____________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

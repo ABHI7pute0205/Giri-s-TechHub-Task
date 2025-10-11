@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+#clk {
+  text-align: center;
+  margin-top: 25px;
+
+  /* transition: color 0.5s ease-in-out;
+  -webkit-transition: color 0.5s ease-in-out;
+  -moz-transition: color 0.5s ease-in-out;
+  -ms-transition: color 0.5s ease-in-out;
+  -o-transition: color 0.5s ease-in-out; */
+}
+
+/* custom class */
+#color-Change {
+  color: crimson;
+}
