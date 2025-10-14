@@ -1,0 +1,586 @@
+
+/*
+Q6. What is a static keyword and explain in depth?
+→
+	The static keyword means 'belongs to the class , not to any specific object'.
+
+- so when we declared something as static it can be access without creation object of that class 
+
+- static keyword can be used with :
+
+1. variables  -> A static variable is shared by all objects of a class.
+- There is only one copy of the static variable in memory
+
+2. Methods   ->A static method belongs to the class, not an instance.
+-It can be called without creating an object.
+-It cannot use non-static (instance) variables or methods directly.
+--You can only access static members inside static methods directly.
+
+3. Blocks   -> Used for initializing static variables.
+- Executes only once when the class is loaded into memory.
+
+4. Nested classes  -> A static class inside another class.
+- Can be accessed without creating an object of the outer class
+----------------------------------------------------------------------------------------------------
+
+Important points:
+-- Static members are shared by all objects.
+-- Static methods cannot access instance variables or methods directly.
+-*-Static blocks run once per class loading.
+-- Static methods and variables can be called using class name.
+-- Static variables are stored in Method Area (Class area) memory.
+============================================================================================================
+Static blocks execute when their own class is initialized (class loading time), not necessarily before every main (especially if the class is loaded later).
+
+*/
+/*
+static block always runs before main” only when the static block is in the same class that you run, or when the class is already loaded before main
+*/
+E.g 
+
+class Demo {
+    static int a;
+    static {
+        a = 100;
+        System.out.println("Static block executed");
+    }
+}
+public class StaticKeyword{
+	static{
+	         System.out.println("hey i am Static block from the main method's class ");
+	}
+    public static void main(String[] args) {
+        System.out.println("Main method executed");
+        System.out.println(Demo.a);
+    }
+}
+_________________________________________________________________
+Q4. How to pass an array as a parameter in a function/method explained with an example?
+→
+class ABC{
+// only one array in the memory with 2 different references
+
+	void acceptArray(int arr[]){
+	  System.out.println("arr points to the Base address of a : "+System.identityHashCode(arr));
+
+	  arr[1]=100;	// changes performed in the function are affected on original array  / or at a function calling point 
+	}
+}
+
+public class ArrayPassToFunctionOfClass{
+	public static void  main(String x[]){
+	  int a[] = new int[]{10,20,30,40};
+
+	System.out.println("Base Address of a : "+System.identityHashCode(a));
+
+	ABC ref = new ABC();	// object of the class 
+
+// from here we pass the base address of the array 
+	ref.acceptArray(a);	// call the method of class ABC and pass array as a reference 
+
+
+	System.out.println("Array Element :");
+	for(int i:a){
+	  System.out.println(i);	// base address + index * size 
+	}
+	}
+}
+
+// means when we have the more than one reference of the single object OR a array or anything that is created by using new keyword when ever we perform the changes using any reference then the changes actually perform on the main memory or the changes perform on the all over the application basically we perform the changes on the main memory space 
+
+//---------------------------------------------
+
+/*
+call by value :
+	means when we pass the duplicate value from the function calling to the function definition called as call by value 
+if we pass anu variable in a function definition which is NOT ALLOCATED BY A NEW KEYWORD then it is know as call by value 
+- means we pass primitive types of values like int , float without  a new called ...
+ 	
+call by reference :
+	means we pass the base address of the  memory from function calling to the function definition called as call by reference.
+- means here we can pass the variables which are allocated or created by using new keyword called as....
+- and the changes perform in the function definition are reflect on function calling point  	
+*/
+
+Q7. What is the difference between instance variable and local variable?
+→
+Instance variable means variable declared within class without static keyword called as instance variable.
+Scope / visibility Throughout the class for that instance
+Instance variables has default values  
+Memory Area : on the heap in the object space 
+Local Variable means a variable declared inside the function , constructor  , method that has a block level scope.
+Scope / visibility only within the method block in which they are declared 
+It does not have any default values You must be explicitly initialize these variables before use 
+Memory Area : on the stack as per the method’s stack frame 
+
+Q8. What is the difference between reference and object in memory?
+→
+Reference : it is a simple reference  variable which holds the address of the object memory 
+Object :  it is a block of memory which is created in a JVM and it stores the actual data of the class .
+
+Syntax: classname ref = new classname();
+Example: Employee e = new Employee();
+
+
+
+Q9.What is a constructor in JAVA and why use it to explain with an example?
+→ constructor is a function with the same name as class name but without return type called as constructor.
+Syntax : 
+class classname{
+     classname(){	// constructor of the class 
+	Write here your logics 
+   }
+}
+
+There are two reason to use constructor 
+
+a. Call function when object get created or execute logic at the time of object creation 
+ → Means we can say constructor execute when class object get created means we not need to call constructor manually it is executed at the time of object creation 
+
+
+b. To initialize class member at the time of object creation 
+→  If we want to initialise some value to an instance variable or static variable at the time of object creation then we can initialize it in the constructor.
+
+
+Q10. What is constructor chaining in JAVA?
+→
+constructor chaining means when we call one constructor from another constructor called constructor chaining.
+
+Two Ways to perform the constructor changing : 
+ 
+Using this() constructor : this() constructor can perform constructor chaining within the same class and for that we are required to use constructor overloading concept.
+
+→ this() constructor can execute all constructors by using stack rules. The first calling constructor executes last and the last calling constructor executes first.
+
+this() constructor must be the first line of code in calling the constructor.
+
+
+Using super() constructor : super constructor can perform constructor chaining by using inheritance.
+
+=============================================================
+HTML -
+-------------------------------------------------------------
+
+Q1. What is HTML and why use it ?
+→   HTML stands for HyperText Markup Language.
+It is a markup language, not a programming language. Its role is to structure content, not to define behavior or logic.
+“HyperText” means it supports links (hyperlinks) between documents or different parts of a page. 
+HTML documents are made up of elements (tags), attributes, and nested content. These tags tell a web browser what each part of the content is (heading, paragraph, image, link, etc.).
+A browser reads the HTML and renders (displays) content according to the structure and tags.
+Why Use it : 
+
+Structure & Semantics
+ It gives meaning to content (heading, paragraphs, lists, links, images) so browsers and search engines can understand the document’s structure. 
+
+Universally Supported by Browsers
+ Every web browser understands HTML. It’s the standard language for describing web pages.
+
+Linking & Navigation
+ HTML allows you to link between pages or within a page (using <a> tags). That is the “hypertext” part.
+
+
+Embedding Media & Forms
+ You can embed images, audio, videos, forms (for user input) using HTML tags.
+
+
+Accessibility & SEO
+ Because HTML uses semantic tags (like <header>, <nav>, <footer>, <article>), content is more accessible to screen readers, search engines, etc. (they understand better).
+ Also, semantic HTML helps in search engine optimization (SEO).
+
+
+Platform independent / Lightweight
+ HTML files are simple text files. They are lightweight and can be rendered across many devices (desktop, mobile, etc.
+
+
+Q2. Explain the all basic HTML structure tags?
+→
+<!DOCTYPE html> — declares the document is HTML5
+<html> … </html> — root element that wraps the entire HTML document
+<head> … </head> —   holds metadata, links, scripts, title (not shown on page)
+<meta charset="UTF-8"> — sets the character encoding to UTF-8
+<title> … </title> — defines the page title shown in browser tab
+<body> … </body> — contains all the visible content of the web page
+
+Q3. Explain 10 formatting tags in HTML?
+→
+<b> … </b> — makes the text bold (visual emphasis, no extra meaning)
+<strong> … </strong> — marks the text as strong or important (usually shown bold) 
+<i> … </i> — puts the text in italic (visual style)
+<em> … </em> — emphasizes the text (gives semantic importance, typically shown in italics) <u> … </u> — underlines the text
+<del> … </del> — shows text that has been deleted (often via strikethrough)
+<ins> … </ins> — shows text that has been inserted (often underlined)
+<sup> … </sup> — makes text a superscript (raised, smaller)
+<sub> … </sub> — makes text a subscript (lowered, smaller)
+<mark> … </mark> — highlights or marks text (background color)
+
+Q4.What is the difference between the ‘id’ attribute and the ‘class’ attribute of HTML elements?
+→ 
+Id Attribute is a unique for all the HTML Elements we can declared separate unique id for each element , id's can not be duplicated 
+
+class Attribute may be same for multiple element means we can give same class name for multiple HTML element and Apply Styling on them 
+
+Q5. What is semantic HTML?
+→
+Semantic HTML is using HTML tags that meaningfully describe their content, rather than just how things look.
+It means picking tags based on the role or purpose of content (e.g. “this is a navigation”, “this is the main section”, “this is a footer”) rather than styling everything with generic <div> or <span>. 
+
+Why use Semantic HTML
+Makes the HTML easier to read and maintain by developers.
+Helps accessibility: screen readers and assistive tools can better understand the structure and meaning of a page. 
+Improves SEO: search engines can index and rank pages more effectively when the structure/meaning are clear. 
+Supports separation of content vs presentation: HTML provides meaning and structure, CSS handles styling
+
+Q6. Is it possible to change an inline element into a block level element?
+→
+Yes — you can make an inline element behave like a block-level element (or vice versa) using CSS
+How to change inline → block behaviour  | Use the CSS display property
+
+span.someClass {
+  display: block;
+}
+
+That will force the <span> (normally inline) to behave like a block item: starts on a new line, can take full width, allow height/width settings, margins/paddings vertically & horizontally etc. 
+You can also use display: inline-block; to get a mix: behaves somewhat like a block (accepts width/height etc.) but still flows inline with surrounding text.
+
+Q7.In how many ways can you display HTML elements?
+→  Common Display Types in CSS
+
+display: block;
+Behavior: The element starts on a new line and stretches to fill the available width.
+Examples: <div>, <p>, <h1> to <h6>, <section>, <article>
+Use Case: Ideal for structural elements like sections, paragraphs, and headers.
+
+display: inline;
+Behavior: The element does not start on a new line and only takes up as much width as necessary.
+Examples: <span>, <a>, <strong>, <em>
+Use Case: Suitable for styling small parts of content within a line, such as links or emphasized text.
+
+display: inline-block;
+Behavior: The element is formatted as an inline element, but you can apply width and height values.
+Examples: <button>, <input>, <img>
+Use Case: Useful for elements that need to sit inline but also require block-level styling, like buttons or images.
+
+display: none;
+Behavior: The element is not displayed at all (it has no effect on layout).
+Use Case: Commonly used for hiding elements dynamically with JavaScript.
+
+display: flex;
+Behavior: The element becomes a flex container, enabling flexible layouts for its children.
+Use Case: Ideal for creating responsive and aligned layouts.
+
+display: grid;
+Behavior: The element becomes a grid container, allowing for two-dimensional layouts.
+Use Case: Perfect for complex layouts with rows and columns.
+
+display: list-item;
+Behavior: The element behaves like a <li> element, typically used within lists.
+Use Case: Useful for custom-styled list items.
+
+display: table;
+Behavior: The element behaves like a <table> element.
+Use Case: Used for creating table-like structures without using actual <table> tags.
+
+display: table-row;
+Behavior: The element behaves like a <tr> element.
+Use Case: Useful for structuring rows in a table layout.
+
+display: table-cell;
+Behavior: The element behaves like a <td> element.
+Use Case: Used for creating cell-like structures within a table layout.
+
+Q8.What is the difference between “display: none” and “visibility: hidden”, when used as attributes to the HTML element?		→
+-->
+display: none [ya ne element purn jato tya che space pan jate]
+Effect on Layout: Removes the element from the document flow entirely. It does not occupy any space, and other elements behave as if it doesn't exist.
+Visibility: The element is not visible on the page.
+Accessibility: The element is not accessible to screen readers or interactive tools.
+Use Cases: Ideal for dynamically hiding elements without affecting the layout, such as modals, dropdowns, or tabs.
+
+
+ visibility: hidden	[ya ne element fakt hide hoto tya che space tashe rah te ]
+Effect on Layout: The element remains in the document flow and occupies space, but it is not visible.
+Visibility: The element is hidden but still takes up space on the page.
+Accessibility: The element is still accessible to screen readers and interactive tools.
+Use Cases: Useful when you want to hide an element temporarily without affecting the layout, such as hiding a tooltip or error message while keeping its space reserved.
+display: none: Completely removes the element from the layout; other elements adjust accordingly.
+visibility: hidden: Hides the element but keeps its space in the layout; other elements do not adjust.
+Q9.Difference between link tag <link> and anchor tag <a>?
+→ <link> Tag
+Purpose: Establishes a relationship between the current document and an external resource.
+Common Use: Linking to external resources like stylesheets, icons, or fonts.
+Placement: Typically used within the <head> section of the HTML document.
+Visibility: Invisible to users; does not create any visible content on the page.
+Attributes:
+rel: Specifies the relationship between the current document and the linked resource (e.g., stylesheet, icon).
+href: Defines the URL of the linked resource.
+type: Specifies the type of the linked resource (e.g., text/css for stylesheets).
+media: Specifies the media type for which the linked resource is designed (e.g., screen, print)
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<a> Tag (Anchor Tag)
+Purpose: Defines a hyperlink that links one page to another.
+Common Use: Creating clickable links to navigate to other web pages, sections within the same page, or external resources.
+Placement: Used within the <body> section of the HTML document.
+Visibility: Visible to users; creates a clickable link on the page.
+Attributes:
+href: Specifies the URL of the page the link goes to.
+target: Specifies where to open the linked document (e.g., _blank to open in a new tab).
+title: Specifies extra information about the link (often displayed as a tooltip).
+<a href="https://www.example.com" target="_blank">Visit Example</a>
+
+
+Q10.What are forms and how to create forms in HTML?
+→ 
+HTML forms are interactive sections of a webpage that allow users to input data, which is then sent to a server for processing. They are essential for tasks like user registration, login, feedback submission, and more.
+To create a form, use the <form> element, which acts as a container for various input elements such as text fields, checkboxes, radio buttons, and buttons. 
+action: Specifies the URL where the form data will be sent upon submission.
+method: Defines the HTTP method to be used when sending form data. Common methods include:
+GET: Appends form data to the URL, visible to the user.
+POST: Sends form data in the body of the HTTP request, not visible in the URL.
+target: Specifies where to display the response after submitting the form (e.g., _self, _blank).
+Common Form Elements
+Text Input: <input type="text"> — for single-line text entries.
+Password Input: <input type="password"> — for password fields.
+Email Input: <input type="email"> — for email addresses.
+Radio Buttons: <input type="radio"> — for selecting one option from a set.
+Checkboxes: <input type="checkbox"> — for multiple selections.
+Dropdown List: <select><option></option></select> — for selecting from a list of options.
+Textarea: <textarea></textarea> — for multi-line text input.
+Submit Button: <input type="submit"> or <button type="submit"> — to submit the form.
+
+=========================================================================================
+SQL -
+-----------------------------------------------------------------------------------------
+
+Q1. What is DDL in SQL? Give some examples.
+-->
+DDL means Data Definition Language.
+It is used to create, change, or delete database structures like tables.
+Examples:
+
+CREATE 	– to make a new table
+ALTER 	– to change a table
+DROP 	– to delete a table
+TRUNCATE– to remove all data from a table
+RENAME 	– to change the name of a table
+
+Q2. What is the difference between CREATE and ALTER statements?
+-->
+CREATE is used to make a new table or database.
+Example: CREATE TABLE students (id INT, name VARCHAR(50));
+
+ALTER is used to change an existing table (like adding or removing columns).
+Example: ALTER TABLE students ADD age INT;
+
+Q3. How is the DROP command different from TRUNCATE?
+-->
+DROP removes the whole table (data + structure).
+Example: DROP TABLE students;
+
+TRUNCATE removes only the data, but the table structure stays.
+Example: TRUNCATE TABLE students;
+
+Q4. What is the use of the RENAME command?
+-->
+The RENAME command is used to change the name of a table.
+Example:
+RENAME TABLE students TO learners;
+
+Q5. What is the purpose of the COMMENT command in SQL?
+-->
+The COMMENT command is used to add notes or descriptions to database objects like tables or columns.
+Example:
+COMMENT ON TABLE students IS 'This table stores student details';
+
+Q6. What is the difference between DELETE and TRUNCATE?
+-->
+DELETE removes specific rows using a condition (WHERE).
+Example: DELETE FROM students WHERE id = 1;
+
+TRUNCATE removes all rows from a table at once.
+Example: TRUNCATE TABLE students;
+
+Q7. Can we rollback a TRUNCATE operation? Why or why not?
+-->
+No, we cannot rollback TRUNCATE.
+Because TRUNCATE is a DDL command, and once executed, the data is permanently deleted.
+
+Q8. What does the ALTER TABLE statement do? Give an example.
+-->
+The ALTER TABLE statement is used to change a table’s structure — like adding, deleting, or renaming columns.
+Example:
+ALTER TABLE students ADD email VARCHAR(100);
+
+Q9. What is a schema in SQL?
+-->
+A schema is like a container or folder that holds database objects such as tables, views, and indexes.
+ Example: In a school database, a schema may contain tables like students, teachers, and classes.
+
+Q10. What happens when you drop a table that has foreign key constraints?
+-->
+If a table has a foreign key, you cannot drop it directly because it is linked to another table.
+You must remove or disable the foreign key constraint first, then drop the table.
+===========================================================================================================
+
+SQL Table Creation : 
+1. Create table Doctor
+-->  
+mysql> create table doctor(id int(5) primary key auto_increment, name varchar(200) not null, email varchar(200) not null unique , contact varchar(200) not null unique , Bdegree varchar(200) not null , age int(5) not null check(age > 26) , salary int(5) default(50000));
+Query OK, 0 rows affected, 3 warnings (0.27 sec)
+
+mysql> desc doctor;
++---------+--------------+------+-----+---------+-------------------+
+| Field   | Type         | Null | Key | Default | Extra             |
++---------+--------------+------+-----+---------+-------------------+
+| id      | int          | NO   | PRI | NULL    | auto_increment    |
+| name    | varchar(200) | NO   |     | NULL    |                   |
+| email   | varchar(200) | NO   | UNI | NULL    |                   |
+| contact | varchar(200) | NO   | UNI | NULL    |                   |
+| Bdegree | varchar(200) | NO   |     | NULL    |                   |
+| age     | int          | NO   |     | NULL    |                   |
+| salary  | int          | YES  |     | 50000   | DEFAULT_GENERATED |
++---------+--------------+------+-----+---------+-------------------+
+7 rows in set (0.02 sec)
+
+________________________________________________________________________________________
+Perform following operation on above tables
+ 
+Q1. add pgdegree column in table with data type varchar with size 200?
+-->
+mysql> alter table doctor add pgDegree varchar(200);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc doctor;
++----------+--------------+------+-----+---------+-------------------+
+| Field    | Type         | Null | Key | Default | Extra             |
++----------+--------------+------+-----+---------+-------------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment    |
+| name     | varchar(200) | NO   |     | NULL    |                   |
+| email    | varchar(200) | NO   | UNI | NULL    |                   |
+| contact  | varchar(200) | NO   | UNI | NULL    |                   |
+| Bdegree  | varchar(200) | NO   |     | NULL    |                   |
+| age      | int          | NO   |     | NULL    |                   |
+| salary   | int          | YES  |     | 50000   | DEFAULT_GENERATED |
+| pgDegree | varchar(200) | YES  |     | NULL    |                   |
++----------+--------------+------+-----+---------+-------------------+
+8 rows in set (0.01 sec)
+_____________________________________________________________
+Q2. drop the age column from the above table?
+-->
+mysql> alter table doctor drop column age;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc doctor;
++----------+--------------+------+-----+---------+-------------------+
+| Field    | Type         | Null | Key | Default | Extra             |
++----------+--------------+------+-----+---------+-------------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment    |
+| name     | varchar(200) | NO   |     | NULL    |                   |
+| email    | varchar(200) | NO   | UNI | NULL    |                   |
+| contact  | varchar(200) | NO   | UNI | NULL    |                   |
+| Bdegree  | varchar(200) | NO   |     | NULL    |                   |
+| salary   | int          | YES  |     | 50000   | DEFAULT_GENERATED |
+| pgDegree | varchar(200) | YES  |     | NULL    |                   |
++----------+--------------+------+-----+---------+-------------------+
+7 rows in set (0.01 sec)
+__________________________________________________________________
+Q3. rename salary column from doctor salary?
+-->
+mysql> alter table doctor rename column salary to doctor_salary;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc doctor;
++---------------+--------------+------+-----+---------+-------------------+
+| Field         | Type         | Null | Key | Default | Extra             |
++---------------+--------------+------+-----+---------+-------------------+
+| id            | int          | NO   | PRI | NULL    | auto_increment    |
+| name          | varchar(200) | NO   |     | NULL    |                   |
+| email         | varchar(200) | NO   | UNI | NULL    |                   |
+| contact       | varchar(200) | NO   | UNI | NULL    |                   |
+| Bdegree       | varchar(200) | NO   |     | NULL    |                   |
+| doctor_salary | int          | YES  |     | 50000   | DEFAULT_GENERATED |
+| pgDegree      | varchar(200) | YES  |     | NULL    |                   |
++---------------+--------------+------+-----+---------+-------------------+
+7 rows in set (0.01 sec)
+______________________________________________________________________
+Q4. insert 10 records in the doctor table?
+-->
+mysql> insert into doctor values(1,'ram','ram@gmail.com','9955662233','BHMS',60000,'MD');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into doctor values(2,'saurabh','saurabh@gmail.com','7378361450','MBBS',80000,'MD');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into doctor values(3,'prashant','prashant@gmail.com','6162361450','MBBS',100000,'MDs');
+Query OK, 1 row affected (0.01 sec)
+
+_________________________________________________________________________________
+Q5. show all doctors from tables?
+-->
+mysql> select * from doctor;
++----+----------+--------------------+------------+---------+---------------+----------+
+| id | name     | email              | contact    | Bdegree | doctor_salary | pgDegree |
++----+----------+--------------------+------------+---------+---------------+----------+
+|  1 | ram      | ram@gmail.com      | 9955662233 | BHMS    |         60000 | MD       |
+|  2 | saurabh  | saurabh@gmail.com  | 7378361450 | MBBS    |         80000 | MD       |
+|  3 | prashant | prashant@gmail.com | 6162361450 | MBBS    |        100000 | MDs      |
++----+----------+--------------------+------------+---------+---------------+----------+
+3 rows in set (0.00 sec)
+_______________________________________________________________________________________
+Q6. fetch salary wise doctor count?
+-->
+mysql> select doctor_salary , count(*) from doctor group by doctor_salary;
++---------------+----------+
+| doctor_salary | count(*) |
++---------------+----------+
+|         60000 |        1 |
+|         80000 |        1 |
+|        100000 |        2 |
++---------------+----------+
+3 rows in set (0.01 sec)
+__________________________________________________________________________________________
+Q7. fetch a doctor whose name is more than 5 letters and start with r and ends with sh?
+-->
+mysql> select * from doctor  where name like 'R%sh' and length(name)>5;
+Empty set (0.01 sec)
+
+mysql> select * from doctor  where name like 'R____sh';
+Empty set (0.00 sec)
+
+mysql> select * from doctor  where name like 'R__%__sh';
+Empty set (0.00 sec)
+__________________________________________________________
+Q8. Fetch a doctor whose salary is 10000,50000,30000,60000?
+-->
+mysql> select * from doctor where doctor_salary In (10000,50000,30000,60000);
++----+------+---------------+------------+---------+---------------+----------+
+| id | name | email         | contact    | Bdegree | doctor_salary | pgDegree |
++----+------+---------------+------------+---------+---------------+----------+
+|  1 | ram  | ram@gmail.com | 9955662233 | BHMS    |         60000 | MD       |
++----+------+---------------+------------+---------+---------------+----------+
+1 row in set (0.00 sec)
+___________________________________________________________
+Q9. Fetch doctor whose salary is between 10000 to 50000?
+-->
+mysql> select * from doctor where doctor_salary Between 10000 AND 80000;
++----+---------+-------------------+------------+---------+---------------+----------+
+| id | name    | email             | contact    | Bdegree | doctor_salary | pgDegree |
++----+---------+-------------------+------------+---------+---------------+----------+
+|  1 | ram     | ram@gmail.com     | 9955662233 | BHMS    |         60000 | MD       |
+|  2 | saurabh | saurabh@gmail.com | 7378361450 | MBBS    |         80000 | MD       |
++----+---------+-------------------+------------+---------+---------------+----------+
+2 rows in set (0.00 sec)
+_____________________________________________________
+Q10.fetch maximum and minimum salary of doctor?
+->
+mysql> select max(doctor_salary) , min(doctor_salary) from doctor;
++--------------------+--------------------+
+| max(doctor_salary) | min(doctor_salary) |
++--------------------+--------------------+
+|             100000 |              60000 |
++--------------------+--------------------+
+1 row in set (0.00 sec)
