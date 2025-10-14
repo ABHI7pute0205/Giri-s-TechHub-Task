@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter Increment Decrement on Button Click</title>
+    <link rel="stylesheet" href="../CSS/Counter-Increment-Decrement.css" />
+  </head>
+  <body>
+        <!--___________________________________________________________
+         Tag type   	      |      Property to update content
+        <input>	              |      .value
+        <div>, <span>, <p>	  |      .textContent or .innerText (retur the inner value of the HTML element,tag) 
+        __________________________________________________________        
+    -->
+    <h2>Increment Decrement Counter After Button Click</h2>
+    <div class="box">
+        
+      <button id="dec">-</button>
+      <input id="res" placeholder="0"></input>
+      <button id="inc">+</button>
+
+      <audio src="../Audio-Files/Mouse-Click.mp3" id="audio"></audio>
+      <audio src="../Audio-Files/funny-laughing-406018.mp3" id="audio1"></audio>
+    </div>
+    <!-- After button click 
+ 
+3. Show/Hide Password
+Task: Toggle visibility of a password field.
+Before select checkbox  |After select checkbox
+ -->
+    <h2>Show Hide Password</h2>
+    <div class="box">
+        <input type="password" id="pass" placeholder="Enter Password">
+        <label>
+            <input type="checkbox" id="togglepwd">Show Password
+        </label>
+    </div>
+
+<!-- 5. Live Character Counter
+Task: Show how many characters have been typed in a text box.
+ 
+After typing in textbox 
+ -->
+    <h2>Live character Counter</h2>
+    <div class="box">
+        <input type="text" id="inp_text" placeholder="Enter Something">
+        <input type="text" id="res" readonly>
+    </div>
+
+
+    <script>
+      const resEle = document.getElementById("res");
+      const incbtn = document.getElementById("inc");
+      const decbtn = document.getElementById("dec");
+
+      let count = 0;
+
+      //.value is how you read or write the content inside an input box. [always use .value when you want to display or get data from an input element.]
+
+      function incremet() {
+        count++;
+        resEle.value = count;
+
+        // add sound Effect 
+        let sound= document.getElementById("audio");
+        sound.currentTime=0;
+        sound.play();
+      }
+
+      function decrement() {
+        count--;
+        resEle.value = count;
+        // add sound Effect 
+        let sound= document.getElementById("audio");
+        sound.currentTime=0;
+        sound.play();
+      } 
+      incbtn.addEventListener("click", incremet);
+      decbtn.addEventListener("click", decrement);
+
+    // Show PAssword Code 
+    
+    const passEle = document.getElementById("pass");
+    const toggleEle = document.getElementById("togglepwd");
+
+    // function 
+    // Checked → visible  |  Unchecked → hidden
+
+    function togglePassword(){
+        if(toggleEle.checked){
+            passEle.type="text";  // show password
+        }
+        else{
+            passEle.type="password"; // hide password
+        }
+        let audio = document.getElementById("audio1");
+        audio.currentTime=0;
+        audio.play();
+    }
+    toggleEle.addEventListener("change",togglePassword);
+
+    // Live Character Counter  .value ne tya jay input box madhe je kahi pan enter karu te get hoil InputText ya variable madhe yeil 
+
+    const InputText = document.getElementById("inp_text");
+
+    const OutputText = document.getElementById('res');
+    
+    function CharCount(){
+        const UserEnteredText = InputText.value; // get the Current Text from the Input Box
+
+        if(UserEnteredText ===""){
+            OutputText.value=0; // if empty show 0
+        }
+        else{
+            OutputText.value = InputText.length; // count the characters 
+        }
+    }
+    InputText.addEventListener("input",CharCount);
+
+    </script>
+  </body>
+</html>

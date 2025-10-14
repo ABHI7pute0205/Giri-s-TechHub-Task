@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  /* initially sagle element column la jatiel  */
+  flex-direction: column;
+}
+
+.container1 {
+  width: 80%;
+  min-height: 100px;
+  margin: auto;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+}
+/* header */
+/* 
+#header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 50px;
+  background-color: black;
+  padding: 10px;
+} */
+
+#header h2 {
+  color: white;
+  font-size: 2em;
+}
+/* menu */
+#menu {
+  display: flex;
+  width: 100%;
+  min-height: 50px;
+  background-color: black;
+  margin-top: 5px;
+}
+#menu ul {
+  width: 100%;
+  display: flex;
+  list-style: none;
+  gap: 10px;
+  /* vertically center sathi -> line:height and this */
+  align-items: center;
+  /* menu move kar nya sathi */
+  /* justify-content: end; */
+}
+#menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+/* main content */
+.box {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  /* background-color: lightslategray; */
+}
+.box .cont {
+  flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+}
+/* image adjust */
+.cont .img-data {
+  width: 300px;
+  height: 300px;
+}
+.img-data img {
+  width: 100%;
+}
+
+.cont p {
+  padding: 10px;
+  text-align: justify;
+}
+/* here we change list style  */
+.cont .list {
+  padding-left: 30px;
+  list-style-position: inside;
+  border: 3px solid purple;
+  width: 80%;
+}
+/* custom class to change to border of the list after some time using JS */
+.cont .change-border-color {
+  border: 3px solid green;
+}
+
+.cont .change-font-size {
+  font-size: 22px;
+}
+
+.box .bar {
+  flex-basis: 20%;
+  border: 1px solid #000;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
+.footer {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+  width: 100%;
+}
+.footer p {
+  color: white;
+}
+/* we use set Attribute  */
+
+.back-color {
+  background-color: crimson;
+  color: white;
+}
+
+/* JS madhe set and get Madhe "id" # selector  la high priority aahe so tya class chya saglya color change chya saglya property aaplya custom CSS madhe write kara y chay  */
+.back-col {
+  background-color: royalblue;
+}
