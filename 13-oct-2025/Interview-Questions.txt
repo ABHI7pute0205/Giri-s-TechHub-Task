@@ -1,0 +1,773 @@
+13-10-2025
+
+ abstract class and  interface Interview Questions
+
+	
+Q1.What is the main difference between an abstract class and an interface in Java? 
+-->
+Abstract class :
+	- abstract class means class can not create it's object 
+	- it is a class that can have both implemented and unimplemented methods (means method with body AND Method without Body)
+	- a class can extends only one Abstract class (single inheritance )
+	- abstract class can have Variable , constructors and non-static methods.
+
+e.g.
+abstract class Animal {
+    void eat() {    // implemented method
+	System.out.println("Eating..."); 
+    } 
+    abstract void sound(); // unimplemented method
+}
+
+
+Interface : 
+ 	- interface is same like as abstract class.
+	- interface can have only method declaration we can not write definition of the method 
+	- from java 1.8 JDK version we can write static and Default method in a Interface with body , definition.
+	- we use interface to just defined rules means method not to implement 
+	- using interface we can achieve Multiple Inheritance 
+	- one class can implement multiple interfaces at a time 
+	- in interface we can have only Constant Variables i.e static final Variables 
+e.g.
+interface Animal {
+    void sound(); // only method declaration
+}
+ 
+____________________________________________________
+Q2.abstract class implement an interface? If yes, how? Give an example.
+->
+Yes — in Java an abstract class can implement an interface.
+
+[interface madhlya methods public abstract aahe and abstract class madhe pan aapn abstract methods ch declared kar to so aapn jar interface implements kela ekhadya abstract class madhe tar tith abstract tya method abstract mhanun ch consider kelya jatat  and for the implementation we need to create one concreat class i.e simple class and need to extends that abstract class with this and override it's remaing methods and need to create object of this concreat class and try to call ann overridden methods ]
+
+e.g.
+// Define an interface
+interface Animal {
+    void eat();          // method to implement
+    void makeSound();    // method to implement
+}
+
+// Abstract class implements the interface
+abstract class AbstractAnimal implements Animal {
+    
+    @Override
+    public void eat() {
+        System.out.println("Animal is eating");
+    }
+    
+    // makeSound is NOT implemented here → remains abstract
+}
+
+// Concrete subclass
+class Dog extends AbstractAnimal {
+
+    @Override
+    public void makeSound() {
+        System.out.println("Woof Woof!");
+    }
+}
+
+// Test
+public class Main {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.eat();         // calls implementation in AbstractAnimal
+        d.makeSound();   // calls implementation in Dog
+    }
+}
+
+_________________________________________________________
+Q3.Can an interface extend another interface? Can an interface extend an abstract class?  Explain with examples
+->
+Yes, an interface can extend another interface
+
+ - for that use extends keyword 
+ - and when we extends one interface into another interface then child interface can extends all methods of the parent interface 
+ - then we need to create one class and implements an child interface and must implements all methods of the child interface 
+
+e.g.
+// Parent interface
+interface A {
+    void method1();
+}
+		// Child interface extending A
+interface B extends A {
+    void method2();
+}
+		// A class implementing B must implement both method1() and method2()
+class MyClass implements B {
+    public void method1() {
+        System.out.println("method1 from A");
+    }
+    public void method2() {
+        System.out.println("method2 from B");
+    }
+
+    public static void main(String[] args) {
+
+// here we create an oject of the class because we can not create the object of the interfaces we need to implement the interface in child class and create the object of that class
+
+        MyClass obj = new MyClass();
+        obj.method1();
+        obj.method2();
+    }
+}
+-----------------------------
+2. Can an interface extend an abstract class?
+-> 
+ - Interface cannot inherit from any class.
+ - No, an interface cannot extend an abstract class.
+ - Java’s rules do not allow an interface to extend a class (whether abstract or concrete).
+ - Interfaces can only extend other interfaces. 
+ - An abstract class is a class; interfaces are not allowed to extend classes.
+
+______________________________________________
+Q4.When would you prefer using an abstract class over an interface in real-world applications?
+-->
+	- Multiple Classes Share Common Behavior: 
+		[in abstract class we can declared the methods which are common in multiple classes for reduce the code duplication and increase the code readability ]
+
+If several classes share common functionality or state, an abstract class allows you to define this shared behavior in one place, reducing code duplication
+
+e.g.
+abstract class Vehicle {
+    void start() {
+        System.out.println("Vehicle is starting");
+    }
+}
+class Car extends Vehicle {
+    // Inherits start() from Vehicle
+}
+class Bike extends Vehicle {
+    // Inherits start() from Vehicle
+}
+--In this example, both Car and Bike share the start() method, which is defined in the abstract Vehicle class.
+
+- Need for Constructor Logic:
+		Abstract classes can have constructors, which can be used to initialize state that is common to all subclasses.
+	constructor is used to initialize the state which is common in all implemented classes 
+e.g.
+abstract class Animal {
+    String name;
+    Animal(String name) {
+        this.name = name;
+    }
+    abstract void makeSound();
+}
+--Here, the constructor initializes the name field, which is common to all animals.
+
+- Providing Default Behavior:
+If you want to provide default behavior that can be shared across multiple subclasses, an abstract class is suitable.
+	[e.g. abstract parent class madhe eat method this share the common behaviour between multiple sub , child classes ]
+___________________________________________________________________
+
+Q5.Can an abstract class have a constructor? If yes, what is its purpose, and can an interface have one?
+->
+	YES an abstract class can have a constructor , we say abstract class can have abstract methods and abstract class can not create it's object then when the abstract class constructor get executed .
+	- abstract class constructor get executed when we create the object of it's child class , as per the rule of the constructor changing First calling constructor get executed last and last Calling get executed first 
+
+	- purpose of the abstract class constructor is to initialize the instance variable (State of the abstract class ) at the time of the object creation  
+
+e.g.
+abstract class Animal {
+    String name;
+   // Constructor in abstract class
+    Animal(String name) {
+        this.name = name;
+        System.out.println("Animal is created");
+    }
+
+    abstract void sound();
+}
+class Dog extends Animal {
+    Dog(String name) {
+        super(name); // Calls the constructor of Animal
+    }
+
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+public class Test {
+    public static void main(String[] args) {
+        Dog dog = new Dog("Buddy");
+        System.out.println("Dog's name: " + dog.name);
+        dog.sound();
+    }
+}
+-----------------
+Can an Interface Have a Constructor?
+-->
+	- No, an interface cannot have a constructor , becase the interface have public abstarct methods and variables declared in a interface are public ,static, final so the interface variables act as a constant and the goal of the constructor is to initialize the variable at the time of the object creation so we can not declared constructor in interface [due to public, static , final variable of interface]
+
+___________________________________________________________________________________
+Q6.If both abstract class and interface have a method with the same name, and a class implements/extends both, which method is invoked? Explain.
+-->
+	When a class implements both an abstract class and an interface that declare methods with the same name and signature, the class must provide an implementation for that method.
+
+	e.g.
+
+abstract class Animal {
+    void speak() {
+        System.out.println("Animal speaks");
+    }
+}
+
+interface Mammal {
+    void speak();
+}
+class Dog extends Animal implements Mammal {
+    @Override
+    public void speak() {			// here we override the speak method from both interface and abstract class so here override method execute 
+        System.out.println("Woof!");
+    }
+}
+public class Test{
+	public static void main(String x[]){
+	   Dog d = new Dog();
+	   d.speak();
+	}
+}
+In this case, the Dog class provides its own implementation of the speak() method. When you create an instance of Dog and call speak(), it will output:
+
+O/P : Woof!
+----
+This is because the method defined in the Dog class overrides both the speak() method from the Animal class and the speak() method from the Mammal interface.
+_________________________________________________________
+Q7.Can we declare variables in abstract classes and interfaces? If yes, what are the default modifiers for both?
+-->
+	Yes, you can declare variables in both abstract classes and interfaces in Java.
+
+	Abstract class Variables : 
+	  - Instance Variables: Abstract classes can have instance variables with any access modifier: public, protected, private, or default (package-private). These variables can be mutable and initialized in constructors.
+	  - Static Variables: Abstract classes can also have static variables, which are shared among all instances of the class.
+
+e.g.
+abstract class Animal {
+    public String name;
+    protected int age;
+    private String species;
+    static int count = 0;
+
+    Animal(String name, int age, String species) {
+        this.name = name;
+        this.age = age;
+        this.species = species;
+        count++;
+    }
+}
+
+	Interfaces: Variables
+	 - Default Modifiers: All variables declared in an interface are implicitly public, static, and final. This means they are constants and must be initialized at the time of declaration.
+	 - No Instance Variables: Interfaces cannot have instance variables. All fields are effectively constants and are shared across all implementing classes.
+
+e.g
+interface Animal {
+    String KINGDOM = "Animalia"; // public static final by default
+    int MAX_AGE = 100; // public static final by default
+}
+
+___________________________________________________________________
+Q8. How does Java 8 change the way interfaces and abstract classes are used (consider default and static methods)?
+--> 
+Abstract Classes vs. 📜 Interfaces in Java 8+
+
+	1. Default Methods in Interfaces
+	Purpose: Allow interfaces to provide default implementations for methods, ensuring backward compatibility when adding new methods to interfaces.
+
+	Key Points:
+	 - Implementing classes can override these methods.
+ 	 - If not overridden, the default implementation is used.
+	 - Useful for adding utility methods without breaking existing implementations.
+e.g.
+  interface Animal {
+      default void breathe() {
+          System.out.println("Breathing...");
+      }
+  }
+
+. Static Methods in Interfaces
+Purpose: Define utility or helper methods within interfaces, similar to static methods in classes.
+
+Key Points:
+Cannot be overridden.
+Called on the interface itself, not on instances.
+
+Example:
+  interface Calculator {
+      static int add(int a, int b) {
+          return a + b;
+      }
+  }
+
+3. Abstract Classes
+	- Purpose: Provide a base class with common functionality and state that can be shared among subclasses.
+
+	- Key Points:
+	- Can have constructors, instance variables, and concrete methods.
+	- Suitable when multiple classes share common behavior and state
+e.g.
+  abstract class Animal {
+      String name;
+      Animal(String name) {
+          this.name = name;
+      }
+      void sleep() {
+          System.out.println(name + " is sleeping.");
+      }
+      abstract void sound();
+  }
+___________________________________________________________________
+Q9.Can an abstract class have both abstract and non-abstract methods?
+-->
+	Yes, an abstract class in Java can have both abstract and non-abstract methods. This flexibility allows you to define common behavior (non-abstract methods) while enforcing specific behavior (abstract methods) that subclasses must implement
+
+-Abstract Methods
+ - Definition: Methods declared without a body, using the abstract keyword.
+ - Purpose: To specify methods that must be implemented by subclasses.
+ - abstract void makeSound();
+
+-Non-Abstract Methods
+ - Definition: Methods with a body, providing default behavior.
+ - Purpose: To provide common functionality that can be inherited or overridden by subclasses.
+
+  void sleep() {
+      System.out.println("Sleeping...");
+  }
+
+___________________________________________________________________
+Q10.Can a class implement multiple interfaces and extend one abstract class at the same time?
+-->
+Yes, a class in Java can implement multiple interfaces and extend one abstract class simultaneously. This capability allows you to combine the benefits of both interfaces and abstract classes, enabling more flexible and reusable code structures.
+
+How It Works
+Multiple Interfaces: A class can implement multiple interfaces, allowing it to inherit the abstract methods from each interface.
+Single Abstract Class: A class can extend only one abstract class, as Java does not support multiple inheritance of classes.
+
+e.g.
+interface Swimmable {
+    void swim();
+}
+
+interface Runnable {
+    void run();
+}
+
+abstract class Animal {
+    abstract void eat();
+}
+
+class Dolphin extends Animal implements Swimmable, Runnable {
+    @Override
+    void eat() {
+        System.out.println("Dolphin is eating.");
+    }
+
+    @Override
+    public void swim() {
+        System.out.println("Dolphin is swimming.");
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Dolphin is running.");
+    }
+}
+___________________________________________________________________
+Q11. Suppose you have an abstract class with a concrete method calling an abstract method inside it.
+-->
+Yes, in Java, an abstract class can have a concrete (non-abstract) method that calls an abstract method defined within the same class. This is a common design pattern known as the Template Method Pattern.
+
+🛠️ How It Works:
+Abstract Class: Provides a concrete method that contains a sequence of steps, one of which is an abstract method.
+Abstract Method: Defines a step that must be implemented by subclasses, allowing for customization.
+Concrete Method: Contains the algorithm's structure and calls the abstract method at the appropriate point.
+
+e.g.
+abstract class Meal {
+    // Template method
+    public final void prepareMeal() {
+        boilWater();
+        cook();
+        serve();
+    }
+
+    // Concrete method
+    private void boilWater() {
+        System.out.println("Boiling water");
+    }
+
+    // Abstract method
+    protected abstract void cook();
+
+    // Concrete method
+    private void serve() {
+        System.out.println("Serving meal");
+    }
+}
+
+class Pasta extends Meal {
+    @Override
+    protected void cook() {
+        System.out.println("Cooking pasta");
+    }
+}
+
+___________________________________________________________________
+Q12.Explain a real-world example where both abstract classes and interfaces are used together.
+-->
+scenario:
+Abstract Class: PaymentProcessor serves as a base class providing common functionality for all payment methods.
+Interface: PaymentGateway defines a contract for processing payments, ensuring that all payment methods adhere to a standard interface
+
+e.g.
+// Interface defining the contract
+interface PaymentGateway {
+    void processPayment(double amount);
+}
+
+// Abstract class providing common functionality
+abstract class PaymentProcessor implements PaymentGateway {
+    protected String merchantId;
+
+    public PaymentProcessor(String merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public void logTransaction(double amount) {
+        System.out.println("Logging transaction of amount: " + amount);
+    }
+}
+
+// Concrete class implementing the interface and extending the abstract class
+class CreditCardPayment extends PaymentProcessor {
+    public CreditCardPayment(String merchantId) {
+        super(merchantId);
+    }
+
+    @Override
+    public void processPayment(double amount) {
+        logTransaction(amount);
+        System.out.println("Processing credit card payment of amount: " + amount);
+    }
+}
+
+PaymentGateway ensures that all payment methods implement the processPayment() method.
+PaymentProcessor provides common functionality like logTransaction(), reducing code duplication.
+CreditCardPayment implements the processPayment() method and inherits common functionality from PaymentProcessor.
+This approach promotes code reuse and ensures that all payment methods conform to a standard interface.
+===========================================================================================================================================
+HTML & CSS
+________________
+
+Q.What is CSS and why is it used?
+-->
+CSS (Cascading Style Sheets) is a stylesheet language used to describe the presentation of a document written in HTML or XML. It defines how elements should be displayed on screen, paper, or other media. CSS enhances the visual appeal and user experience of web pages by controlling layout, colors, fonts, spacing, and responsiveness across different devices and screen sizes.
+________________________________________________________________________________
+Q.2What are the different types of CSS?
+-->
+There are three primary ways to apply CSS to an HTML document:
+
+Inline CSS:
+ - Applied directly within an HTML element using the style attribute.
+ - Affects only the specific element.
+e.g.
+<p style="color: blue;">This is a blue paragraph.</p>
+
+2.Internal CSS:
+ - Defined within a <style> tag in the <head> section of the HTML document.
+ - Affects the entire page.
+e.g.
+<style>
+  p { color: blue; }
+</style>
+
+3. External CSS:
+ - Defined in a separate .css file linked to the HTML document using a <link> tag.
+ - Allows for consistent styling across multiple pages.
+e.g.
+<link rel="stylesheet" href="styles.css">
+________________________________________________________________________________
+Q.3What is the difference between class and id selectors in CSS?
+-->
+1. Class Selector (.):
+	- Denoted by a period (.) before the class name.
+	- Can be applied to multiple elements.
+	- Used for styling groups of elements.
+e.g.
+.button { background-color: blue; }
+
+2. ID Selector (#):
+
+	- Denoted by a hash (#) before the ID name.
+	- Must be unique within a page; applied to a single element.
+	- Used for specific, unique styling.
+e.g.
+#header { font-size: 24px; }
+________________________________________________________________________________
+Q.4How can you include CSS in an HTML page?
+-->
+CSS can be included in an HTML page in three ways:
+
+Inline CSS:
+Directly within HTML elements using the style attribute.
+
+Internal CSS:
+Within a <style> tag in the <head> section of the HTML document.
+
+External CSS:
+Linked to an external .css file using a <link> tag in the <head> section.
+________________________________________________________________________________
+
+Q.5What is the difference between relative, absolute, fixed, and sticky positioning in CSS?
+-->
+relative:
+ - Positioned relative to its normal position in the document flow.
+ - Allows for offset using top, right, bottom, left.
+
+absolute:
+ - Positioned relative to the nearest positioned ancestor (non-static).
+ - Removed from the document flow.
+
+fixed:
+ - Positioned relative to the viewport.
+ -Stays fixed in place even when the page is scrolled.
+
+sticky:
+ - Switches between relative and fixed positioning depending on the scroll position.
+ - Remains in place within its container until a defined scroll position is reached
+________________________________________________________________________________
+
+Q.6Explain the difference between padding and margin.
+-->
+Padding:
+ - Space between an element's content and its border.
+ - Increases the interactive area of the element.
+
+Margin:
+ - Space outside an element's border.
+ - Creates distance between the element and adjacent elements.
+________________________________________________________________________________
+
+Q.7What is the difference between em, rem, %, and px units in CSS?
+-->
+
+px (pixels):
+- Absolute unit.
+- Fixed size regardless of other settings.
+
+% (percentage):
+- Relative to the parent element's size.
+- Useful for responsive layouts.
+
+em:
+- Relative to the font size of the element itself or its closest parent with a defined font size.
+
+rem (root em):
+- Relative to the font size of the root element (<html>).
+- Provides consistent scaling across the document.
+________________________________________________________________________________
+
+Q.8What is the use of the z-index property in CSS?
+-->
+The z-index property controls the stacking order of positioned elements. Elements with a higher z-index value are displayed in front of those with a lower value. It only affects elements that have a position value other than static.
+________________________________________________________________________________
+
+Q.9What is the difference between display: none; and visibility: hidden;?
+-->
+display: none; :
+ - Removes the element from the document flow.
+ - The element does not occupy space.
+
+visibility: hidden; :
+ - Hides the element but it still occupies space in the layout.
+________________________________________________________________________________
+
+Q.10What is the difference between inline, block, and inline-block elements?
+-->
+inline:
+ - Elements do not start on a new line.
+ - Only take up as much width as necessary.
+
+block:
+ - Elements start on a new line.
+ - Take up the full width available.
+
+inline-block:
+ - Elements do not start on a new line.
+ - Behave like inline elements but allow setting width and height.
+________________________________________________________________________________
+						SQL 
+==============================================================================================================================================
+
+Q.1️What is the use of the LIKE operator in SQL?
+-->
+	The Like Operator in SQL is used for pattern matching purpose 
+
+The LIKE operator in SQL is used to search for a specified pattern in a column. It is often used in the WHERE clause to filter records based on a pattern match. Two commonly used wildcards with LIKE are:
+
+%: Represents zero, one, or multiple characters.
+_: Represents a single character.
+
+e.g.
+SELECT * FROM Employees WHERE Name LIKE 'a_n%'; //list the employees name start with a 
+_____________________________________________________________________________
+Q.2️ What is the difference between the = operator and the LIKE operator in SQL?
+-->
+=: Performs an exact match comparison. It checks if the column value is exactly equal to the specified value.
+
+LIKE: Allows partial matching using wildcards. It is used when you want to search for a pattern rather than an exact value.
+
+e.g.
+1. SELECT * FROM Products WHERE Name = 'Laptop';   // This query retrieves products whose name is exactly "Laptop".
+
+2. SELECT * FROM Products WHERE Name LIKE 'Lap%';  // SELECT * FROM Products WHERE Name LIKE 'Lap%';
+
+_____________________________________________________________________________
+Q.3️What are aggregate functions in SQL? Name a few commonly used aggregate functions.
+-->
+ - Aggregate functions in SQL perform a calculation on a set of values and return a single value. They are often used with the GROUP BY clause to summarize data.
+
+Commonly used aggregate functions include:
+
+COUNT(): Returns the number of rows in a set.
+SUM(): Returns the total sum of a numeric column.
+AVG(): Returns the average value of a numeric column.
+MIN(): Returns the smallest value in a set.
+MAX(): Returns the largest value in a set
+_____________________________________________________________________________
+Q.4️ What is the difference between COUNT(*) and COUNT(column_name)?
+-->
+COUNT(*): Counts all rows in a table, including rows with NULL values.
+COUNT(column_name): Counts only the rows where the specified column has a non-NULL value.
+e.g.
+SELECT COUNT(*) FROM Orders;   		// This query counts all rows in the Orders table.
+SELECT COUNT(OrderID) FROM Orders; 	//This query counts only the rows where OrderID is not NULL
+
+_____________________________________________________________________________
+Q.5️ Explain the difference between GROUP BY and ORDER BY clauses in SQL.
+-->
+GROUP BY: Groups rows that have the same values into summary rows, often used with aggregate functions like COUNT(), SUM(), AVG(), MIN(), and MAX().
+
+ORDER BY: Sorts the result set in either ascending or descending order based on one or more columns.
+
+e.g.
+SELECT Department, COUNT(*) FROM Employees GROUP BY Department;  
+//This query groups employees by department and counts the number of employees in each department.
+
+SELECT * FROM Employees ORDER BY Name ASC;
+//This query retrieves all employees and sorts them by name in ascending order.
+_____________________________________________________________________________
+Q.6️What is the use of the GROUP BY clause?
+-->
+The GROUP BY clause is used in SQL to arrange identical data into groups. It is often used with aggregate functions to perform operations like summing or averaging data within each group.
+
+[Group by clause: if we want to generate result by using a specified column or group of similar values using a specified column then we can use group by clause ]
+
+e.g.
+SELECT Department, AVG(Salary) FROM Employees GROUP BY Department;  //This query calculates the average salary for each department.
+
+_____________________________________________________________________________
+Q.7️ What is the purpose of the HAVING clause in SQL?
+-->
+Having clause is used for check the condition with aggregate functions means we cannot use aggregate function in where clause for checking the condition and if we want to solve this problem we have use having clause
+
+e.g.
+SELECT Department, COUNT(*) FROM Employees GROUP BY Department HAVING COUNT(*) > 5;  
+//This query retrieves departments with more than 5 employees.
+
+_____________________________________________________________________________
+Q.8️What is the difference between the WHERE and HAVING clauses?
+-->
+Where : 
+  -Filters rows before any grouping or aggregation. It is used to specify conditions on individual rows.
+e.g.
+SELECT Department, COUNT(*) FROM Employees WHERE Salary > 50000 GROUP BY Department;
+// This query retrieves departments with employees earning more than 50,000, grouped by department.
+
+Having : 
+ -Having clause is used for check the condition with aggregate functions means we cannot use aggregate function in where clause for checking the condition and if we want to solve this problem we have use having clause
+e.g.
+SELECT Department, COUNT(*) FROM Employees GROUP BY Department HAVING COUNT(*) > 5;
+//This query retrieves departments with more than 5 employees
+_____________________________________________________________________________
+Q.9️Can we use HAVING without GROUP BY in SQL? Explain with an example.
+-->
+Yes, you can use HAVING without GROUP BY. In this case, HAVING acts like a WHERE clause but is used with aggregate functions.
+e.g.
+SELECT COUNT(*) FROM Employees HAVING COUNT(*) > 100;
+// This query retrieves the total number of employees only if the count is greater than 100
+_____________________________________________________________________________
+Q.10When does SQL throw an error using aggregate functions with non-grouped columns?
+-->
+SQL throws an error when you use aggregate functions in a SELECT statement without grouping by all non-aggregated columns. All columns in the SELECT clause that are not aggregated must be included in the GROUP BY clause.
+e.g.
+SELECT Department, AVG(Salary) FROM Employees;
+//This query will throw an error because Department is not aggregated or included in a GROUP BY clause.
+
+-The correct query would be:
+SELECT Department, AVG(Salary) FROM Employees GROUP BY Department;
+_____________________________________________________________________________
+
+=========================================================================================================================================
+						SQL Queries 
+_________________________________________________________________________________________________
+Q1. Display all students whose names start with the letter ‘R’.
+->
+SELECT * FROM students WHERE std_name LIKE 'R%';
+
+_____________________________________________________________________________
+Q2. Display all students whose name contains the word ‘Patil’.
+->
+SELECT * FROM students WHERE std_name LIKE '%Patil%';
+
+_____________________________________________________________________________
+Q3. Find the total number of students from each city.
+->
+SELECT city, COUNT(*)  FROM students GROUP BY city;
+
+_____________________________________________________________________________
+Q4. Find the average marks scored in each course.
+->
+SELECT course, AVG(marks)  FROM students GROUP BY course;
+
+_____________________________________________________________________________
+Q5. Display total fees collected from each course.
+->
+SELECT course, SUM(fees) FROM students GROUP BY course;
+
+_____________________________________________________________________________
+Q6. Find the student with the highest marks in each course.
+->
+SELECT course, std_name, marks
+FROM students
+WHERE (course, marks) IN (
+  SELECT course, MAX(marks) FROM students GROUP BY course
+);
+
+_____________________________________________________________________________
+Q7. Find the minimum marks scored by students in each city.
+->
+SELECT city, MIN(marks) FROM students GROUP BY city;
+
+_____________________________________________________________________________
+Q8. Show only those courses where the average marks are greater than 80.
+->
+SELECT course, AVG(marks) FROM students
+GROUP BY course
+HAVING AVG(marks) > 80;
+
+_____________________________________________________________________________
+Q9. Display only those cities having more than 2 students.
+->
+SELECT city, COUNT(*) 
+FROM students
+GROUP BY city
+HAVING COUNT(*) > 2;
+
+_____________________________________________________________________________
+Q10. For each course, display total students, average marks, and maximum marks
+->
+SELECT course, COUNT(*) , AVG(marks) , MAX(marks) FROM students GROUP BY course;
+

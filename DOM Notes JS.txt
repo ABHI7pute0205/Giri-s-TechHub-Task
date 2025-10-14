@@ -1,0 +1,42 @@
+DOM Notes in JS 
+
+DOM - Document Object Model
+_________________________________________________
+1. What is Document?
+->  Document is a Object in Java Script and which is parent of every object of JavaScript 
+Means every Java Script Web Page Consider as Object and every html Consider as Child of Document .
+- DOM Represents How a web page is Represented in Memory by a JavaScript engine Called DOM.
+
+_________________________________________________
+2. Why use DOM in JavaScript Or What are the Benefits of DOM in Java Script
+->
+DOM help us to change the HTML element at run time 
+Means using DOM we can modify the text of html tag or text from input control
+DOM help us to apply runtime CSS on html page or html element 
+DOM can create HTML element at run time
+DOM can remove HTML element at run time
+DOM can apply run time event on html element by using listernes 
+Etc
+
+If we want to work with DOM practically JavaScript provide one inbuilt object to us name as document  and document object provide n number of methods to us which help us to work with DOM or can modify or create or remove etc operation on html element at run time by using JavaScript
+_________________________________________________
+
+3. Methods of the document Object :
+->
+1. document.createElement() : Using this we can create a new HTML Element by using JS.   e.g document.createElement("h1");
+2. document.getElementById(“id”): this method helps us to fetch html elements in javascript using id.
+3. document.getElementsByClassName(“classname): this method fetches or access HTML elements by using its class name.
+4. document.appendChild(element): this method can append html element in outer element or mark newly created html element as child of another element 
+5. document.removeElement(element): this method can remove element from DOM 
+6. document.write(string): this method can write text on a web page using a document object.
+7. document.replaceChild(new,old): this method can replace new element on old HTML element
+_________________________________________________
+
+4. Properties of DOM :
+->
+a. element.innerHTML=html element content : this property help us to add new data in opening and closing brace of html element 
+b. Element.attribute =new value : this method access the html element attribute in javascript and provide value to them
+c. element.style.property : this property help us apply runtime css on HTML element using JavaScript 
+d. element.setAttribute(attribute,value): change attribute value of an HTML element 
+
+_________________________________________________
