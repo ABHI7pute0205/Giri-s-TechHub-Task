@@ -1,0 +1,503 @@
+14-10-2025
+
+Q.1What is an exception in Java?
+-->
+	- Exception is an unwanted Error which is occur at program run time and handle by the Programmer / developer 
+	- Exception dustups the normal flow of the program.
+	- It is an object that represents an error or abnormal condition.
+e.g. int a = 10 / 0; // ArithmeticException
+
+________________________________________________________________________
+Q.2What happens if an exception is not handled in Java?
+-->
+If an exception is not handled, the JVM (Java Virtual Machine):  [program will be collapse abnormally and stop it's execution flow]
+ - Terminates the program abnormally.
+ - Displays the exception name, description, and stack trace (the line where the error occurred).
+________________________________________________________________________
+Q.3What is the difference between throw and throws keywords?
+-->
+	throw :	- it is a keyword in Exception handling which handles the user defined exceptions.
+		- can be used Inside a method
+		- throw new ArithmeticException("Divide by zero");
+
+	throws : throws is also clause in exception handling which is used for handle the checked exceptions 
+		- can be used In method declaration
+		- void read() throws IOException
+________________________________________________________________________
+Q.4Can we use multiple catch blocks for a single try block?
+-->
+	YES , we can use multiple catch block for a single try block and throw different - different exceptions in that block 
+e.g.
+
+try {
+    int a = 10 / 0;
+}
+catch (ArithmeticException e) {
+    System.out.println("Arithmetic Error");
+}
+catch (Exception e) {
+    System.out.println("General Error");
+}
+
+________________________________________________________________________
+Q.5What is the difference between final, finally, and finalize()?
+-->
+	Final : final is a keyword in a java which is we can used with variable , methods , functions and  classes basically it is a non-access specifier in java.
+	  - with variable : when we used final with variable then variable can act as a constant means we can not modify the value of that variable 
+	  - with function : when used with method , function then we can not override these methods in a child class.
+	  - with classes : when we declared any class as a final then we can not inherit these class in any another class 
+
+finally : it is a Block in exception handling which is used to write a logic which is always executed if the exception generated in try block or not in this block write a code like file open close , JDBC connections etc.
+
+finalize() : it is a method of the object class and which is used in garbage collection which is to call when the object is deleted which is used for the purpose of the resource cleaning. 
+
+OR in short it is a method of the object class which is used for perform the garbage collection. 
+________________________________________________________________________
+Q.6Can a finally block execute if there is a return statement inside the try block?
+-->
+	- The finally block executes even if there is a return statement in the try or catch block.
+e.g.
+try {
+    return 5;
+} finally {
+    System.out.println("Finally always executes");
+}
+
+________________________________________________________________________
+Q.7What is the purpose of creating a custom exception class in Java?
+-->
+- If a developer has some exception in code but java does not provide a ready made class for handling that exception or API for handling exception then the developer  can create own exception class and can handle it.
+- If developer need to generate run time error according to project requirement then developer can create own exception class or custom exception  called as user define exception 
+
+e.g.
+
+class VoterException extends RuntimeException
+{
+   public String getVoterError()
+   {  return "Invalid Voter";
+   }
+}
+class VotingMachine
+{
+   void VerifyVoterAge(int age)
+   { 
+       if(age<18)
+	   { VoterException ve = new VoterException();
+	      throw ve;
+	   }
+	   else
+	   { 
+		System.out.println("You can Vote....");
+	   }
+   }
+}
+public class VoterMachine
+{   public static void main(String x[])
+    {
+	   try{
+	      VotingMachine ve = new VotingMachine();
+		   ve.VerifyVoterAge(16);
+	   }
+	   catch(VoterException ve)
+	   {  System.out.println(ve.getVoterError());
+	   }
+	}
+}
+
+________________________________________________________________________
+Q.8What is the difference between Exception and Error in Java?
+-->
+	Exception : Exception is an event which occurs at program run time and which is responsible for disturb the normal flow of application called as exception 
+		 - Exceptions can be handled by the programmer or it may be checked or unchecked
+
+	Error :  errors cannot be handled by the programmer.
+		- related to JVM e.g.  outOfMemoryError  , StackOverflowError
+
+________________________________________________________________________
+Q.9Can you catch multiple exceptions in a single catch block (multi-catch)?
+-->
+	YES , we can catch the multiple exception in a single catch block which is introduced in Java 7 using the Pipe (|) Operator 	
+e.g.
+try {
+    int a = 10 / 0;
+}
+catch (ArithmeticException | NullPointerException e) {
+    System.out.println("Error occurred: " + e);
+}
+
+________________________________________________________________________
+Q.10What is the difference between try-catch and try-with-resources?
+-->
+	try-catch : try catch is block in exception handling which is always used to handle the checked or unchecked exceptions manually 
+Syntax :
+	try{
+	  // code which generate exception;
+	}
+	catch(ExceptionName ref){
+	  // print the Exception here;
+	}
+
+	try-with-resources : Try with resource bundle is concept introduce in JDK 1.7 version of JAVA where we can pass object as parameter to try block  means we can create object in try block as parameter 
+	OR
+	- it is used to Automatically close the resources (like files , streams etc ) after used 
+e.g.
+try (FileReader fr = new FileReader("data.txt")) {
+ 
+}
+catch (IOException e) {
+
+} 
+______________________________________________________________________________________________
+
+			HTML And CSS
+________________________________________________________________________
+Q.1What are pseudo-classes and pseudo-elements? Give examples.
+->
+Pseudo-classes : Pseudo-classes are used to style an element when it is in a special state.
+e.g.
+	a:hover { color: red; }  /* When mouse is on link */
+
+Pseudo-elements : Pseudo-elements are used to style a part of an element.
+e.g.
+	p::first-letter { font-size: 30px; }  /* First letter of paragraph */
+
+________________________________________________________________________
+Q.2What is the difference between position: relative and position: absolute?
+->
+relative → Moves the element from its normal position.   (It still takes space in the layout.)
+e.g.
+	div { position: relative; left: 20px; }
+
+absolute → Positions the element based on its nearest positioned parent (or the page).(It does not take space in normal layout.)
+e.g.
+	div { position: absolute; top: 50px; left: 100px; }
+
+________________________________________________________________________
+Q.3What are media queries in CSS? Why are they used?
+->
+- Media queries help make a website responsive (look good on all screen sizes).
+- They check the device width, height, or orientation and apply CSS accordingly.
+e.g.
+@media (max-width: 600px) {
+  body { background-color: lightblue; }
+}
+Used for mobile-friendly design.
+
+________________________________________________________________________
+Q.4What is the difference between max-width and min-width in CSS media queries?
+->
+	max-width : CSS works when screen is smaller or equal to given width  (he css tevha ch apply hote jevha application tya width chya kami OR tya width eitk ast tevha ch )
+
+e.g.
+@media (max-width: 600px) → applies to phones (600px chya aat le je pan device ye tya n var ti he apply hot )
+
+	min-width : CSS works when screen is larger or equal to given width   (600px chya pudh che minimum 600 max kiti pan asu shak te tya way ne )
+e.g.
+@media (min-width: 600px) → applies to tablets/desktops
+________________________________________________________________________
+Q.5What are CSS combinators? Explain types like descendant, child, sibling, etc.
+->
+	- Combinators tell how two elements are related in HTML for styling.
+
+
+| Type                 | Symbol  | Meaning                                       | Example                    |
+| -------------------- | ------- | --------------------------------------------- | -------------------------- |
+| **Descendant**       | (space) | Selects elements **inside another**           | `div p` → all p inside div |
+| **Child**            | `>`     | Selects elements that are **direct children** | `div > p`                  |
+| **Adjacent sibling** | `+`     | Selects the **next element** right after      | `h1 + p`                   |
+| **General sibling**  | `~`     | Selects **all siblings after**                | `h1 ~ p`                   |
+
+________________________________________________________________________
+Q.6Explain the concept of float and clear in CSS.
+->
+	float → Moves an element to the left or right side of its container.  (Used for images, layouts, etc.)
+e.g.
+	img { float: right; }
+
+	clear → Stops elements from being beside floated elements
+e.g.
+	.p { clear: both; }
+
+float = push to side
+clear = stop next element from going beside it
+________________________________________________________________________
+Q.7What is the difference between opacity and rgba() for transparency?
+->
+	Opacity : work on Whole element (including text and children)  and affects on child elements 
+e.g.
+	opacity: 0.5;  means makes element light weight and when we set it to 0 then element is not visible to us and set 1 then visible 
+
+	rgba : work on Only background color , it does not affects on child elements 
+e.g.
+	background-color: rgba(255, 0, 0, 0.5);   // ya ne aapn aaplya way ne kon ta background color create karu shak to 
+
+opacity makes everything light, rgba() makes only background light.
+
+________________________________________________________________________
+Q.8What are transitions and animations in CSS? Give examples.
+->
+Transition → Changes CSS property smoothly over time (when hovered or clicked).
+e.g.
+div {
+  transition: background 1s;
+}
+div:hover {
+  background: red;
+}
+
+Animation → Moves or changes styles automatically, using keyframes.
+e.g.
+@keyframes move {
+  from { left: 0; }
+  to { left: 100px; }
+}
+div {
+  position: relative;
+  animation: move 2s infinite;
+}
+
+________________________________________________________________________
+Q.9What is the difference between nth-child() and nth-of-type() selectors?
+-> 
+	nth-child(n) : works on Selects the nth child (counting all element types)
+e.g.
+	li:nth-child(2)
+
+	nth-of-type(n) : works on Selects the nth element of a specific type
+e.g.
+	p:nth-of-type(2)
+
+
+If you have <p> and <div> mixed together,
+nth-child() counts all children,
+nth-of-type() counts only same type elements.
+________________________________________________________________________
+
+				SQL
+________________________________________________________________________
+
+Q1.What is a JOIN in SQL?
+-> 
+	a JOIN in SQL is used to combined one or more table based on related column id's 
+e.g.
+If you have a Customers table and an Orders table, you can join them using the CustomerID.
+________________________________________________________________________
+Q2.What are the different types of JOINS in SQL?
+->
+There are five main types of joins:
+
+INNER JOIN – display the matching rows from the both side tables 
+LEFT JOIN – display all rows from the LEFT hand side table and common record from the RIGHT hand side table 
+RIGHT JOIN – display all rows from the RIGHT hand side table and common record from the LEFT hand side table
+FULL OUTER JOIN – Display all the records from the both tables  (matches + non-matches).
+CROSS JOIN – returns all possible combinations of rows
+________________________________________________________________________
+Q3 What is the difference between INNER JOIN and LEFT JOIN?
+-> 
+	Inner Join : it display's the only rows which are common in both side tables 
+
+	Left Join : it fetch the all records from the left hand side and common records from the right hand side table if no match return null
+________________________________________________________________________
+Q4. Write an example of INNER JOIN.
+->
+SELECT Customers.Name, Orders.OrderID
+FROM Customers
+INNER JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID;
+
+This shows only customers who have placed orders.
+________________________________________________________________________
+Q5.What is a RIGHT JOIN? Give an example.
+->
+	RIGHT JOIN – display all rows from the RIGHT hand side table and common record from the LEFT hand side table
+If no match → shows NULL for left table columns.
+e.g.
+	
+SELECT Customers.Name, Orders.OrderID
+FROM Customers
+RIGHT JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID;
+
+Shows all orders, even if some orders don’t have a matching customer.
+________________________________________________________________________
+Q6. What is a FULL OUTER JOIN?
+->
+FULL OUTER JOIN shows all rows from both tables.
+If there is no match, it fills with NULL on the missing side.
+e.g.
+
+SELECT Customers.Name, Orders.OrderID
+FROM Customers
+FULL OUTER JOIN Orders
+ON Customers.CustomerID = Orders.CustomerID;
+
+Shows all customers and all orders — matches and non-matches.
+________________________________________________________________________
+Q7.What is a CROSS JOIN?
+->
+CROSS JOIN combines every row of first table with every row of second table.
+It gives all possible combinations.
+e.g.
+If Table A has 3 rows and Table B has 2 rows → result = 3 × 2 = 6 rows.
+
+SELECT * FROM A CROSS JOIN B;
+
+________________________________________________________________________
+Q8.What is the difference between JOIN and UNION?
+->
+	JOIN : Purpose - Combine columns from different tables
+		Based on - Common column
+		e.g. INNER JOIN
+
+	UNION : Purpose - Combine rows from different tables
+		Based on - Same number of columns and data type
+		e.g. - UNION, UNION ALL
+	
+JOIN → side by side (columns)
+UNION → one after another (rows)
+________________________________________________________________________
+Q9.What are SQL set operators?
+->
+Set operators are used to combine results of two SELECT statements.
+
+Types:
+
+UNION → combines results (removes duplicates)
+UNION ALL → combines results (keeps duplicates)
+INTERSECT → shows common rows
+MINUS / EXCEPT → shows rows in first query but not in second
+________________________________________________________________________
+Q10.What are the types of subqueries?
+->
+	Subquery = A query inside another query.
+Types:
+
+Single-row subquery → returns one value
+e.g.
+SELECT * FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);
+
+Multi-row subquery → returns many values
+e.g.
+SELECT * FROM Employees WHERE dept_id IN (SELECT dept_id FROM Departments);
+
+Correlated subquery → inner query runs for each row of outer query
+e.g.
+SELECT name FROM Employees e
+WHERE salary > (SELECT AVG(salary) FROM Employees WHERE dept_id = e.dept_id);
+
+________________________________________________________________________
+
+		SQL Queries 
+________________________________________________________________________
+1️ Display all student names with their enrolled course names.
+->
+SELECT s.name, c.cname
+FROM Student s
+INNER JOIN Enrollments e ON s.id = e.sid
+INNER JOIN Courses c ON e.cid = c.cid;
+
+________________________________________________________________________
+2️ Display students who are from Pune and have enrolled in any course
+->
+SELECT DISTINCT s.name, s.city
+FROM Student s
+INNER JOIN Enrollments e ON s.id = e.sid
+WHERE s.city = 'Pune';
+
+________________________________________________________________________
+3️ Find how many students have enrolled in each course.
+->
+SELECT c.cname, COUNT(e.sid) AS total_students
+FROM Courses c
+LEFT JOIN Enrollments e ON c.cid = e.cid
+GROUP BY c.cname;
+
+________________________________________________________________________
+4️ Find students who have not enrolled in any course
+->
+SELECT s.name
+FROM Student s
+LEFT JOIN Enrollments e ON s.id = e.sid
+WHERE e.sid IS NULL;
+________________________________________________________________________
+5️ Display the total fees collected from all enrollments.
+->
+SELECT SUM(c.fees) AS total_fees_collected
+FROM Enrollments e
+JOIN Courses c ON e.cid = c.cid;
+
+________________________________________________________________________
+6️ Display the course with the highest number of enrollments.
+->
+SELECT TOP 1 c.cname, COUNT(e.sid) AS total_enrolled
+FROM Courses c
+JOIN Enrollments e ON c.cid = e.cid
+GROUP BY c.cname
+ORDER BY total_enrolled DESC;
+
+OR 
+-- MySQL version
+SELECT c.cname, COUNT(e.sid) AS total_enrolled
+FROM Courses c
+JOIN Enrollments e ON c.cid = e.cid
+GROUP BY c.cname
+ORDER BY total_enrolled DESC
+LIMIT 1;
+
+________________________________________________________________________
+7️ Display students older than the average age of all students.
+->
+
+SELECT name, age
+FROM Student
+WHERE age > (SELECT AVG(age) FROM Student);
+
+________________________________________________________________________
+8️ List all cities where at least one student enrolled in “Java”.
+->
+SELECT DISTINCT s.city
+FROM Student s
+JOIN Enrollments e ON s.id = e.sid
+JOIN Courses c ON e.cid = c.cid
+WHERE c.cname = 'Java';
+
+________________________________________________________________________
+9️ Show students enrolled in both “Java” and “SQL” courses.
+->
+SELECT s.name
+FROM Student s
+WHERE s.id IN (
+  SELECT e1.sid
+  FROM Enrollments e1
+  JOIN Courses c1 ON e1.cid = c1.cid
+  WHERE c1.cname = 'Java'
+)
+AND s.id IN (
+  SELECT e2.sid
+  FROM Enrollments e2
+  JOIN Courses c2 ON e2.cid = c2.cid
+  WHERE c2.cname = 'SQL'
+);
+
+________________________________________________________________________
+10 Show all students and courses using a FULL OUTER JOIN (if supported).
+->
+SELECT s.name, c.cname
+FROM Student s
+FULL OUTER JOIN Enrollments e ON s.id = e.sid
+FULL OUTER JOIN Courses c ON e.cid = c.cid;
+
+IF FULL OUTER JOIN IS NOT SUPPORTED 
+
+SELECT s.name, c.cname
+FROM Student s
+LEFT JOIN Enrollments e ON s.id = e.sid
+LEFT JOIN Courses c ON e.cid = c.cid
+UNION
+SELECT s.name, c.cname
+FROM Student s
+RIGHT JOIN Enrollments e ON s.id = e.sid
+RIGHT JOIN Courses c ON e.cid = c.cid;
+
+________________________________________________________________________
+
